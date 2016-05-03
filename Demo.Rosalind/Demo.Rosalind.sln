@@ -3,8 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A677BBDF-0056-4F81-86E0-5402CA3E4177}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{101EA79F-3CEE-4ECE-9686-CC1DAD6ED61A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Rosalind.Tests", "Demo.Rosalind.Tests\Demo.Rosalind.Tests.csproj", "{EC9B0CA0-17F5-402A-9498-9D8E80B9E665}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC9B0CA0-17F5-402A-9498-9D8E80B9E665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC9B0CA0-17F5-402A-9498-9D8E80B9E665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC9B0CA0-17F5-402A-9498-9D8E80B9E665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC9B0CA0-17F5-402A-9498-9D8E80B9E665}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC9B0CA0-17F5-402A-9498-9D8E80B9E665} = {A677BBDF-0056-4F81-86E0-5402CA3E4177}
 	EndGlobalSection
 EndGlobal
