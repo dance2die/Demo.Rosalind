@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
@@ -29,11 +30,29 @@ namespace Demo.Rosalind.Tests.DNA
 
 			Assert.True(actual.SequenceEqual(expected));
 		}
+
+		[Fact]
+		public void TestOutputStringOfDnaSymbolCount()
+		{
+			const string expected = "20 12 17 21";
+
+			var output = _sut.CountDnaSymbols(SAMPLE_DATASET);
+			var actual = _sut.BuildOutputString(output);
+
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class Dna
 	{
 		private readonly string[] _dnaSymbols = { "A", "C", "G", "T" };
+
+		public string BuildOutputString(Dictionary<string, int> output)
+		{
+			var sortedOutput = new SortedDictionary<string, int>(output);
+			var values = sortedOutput.Select(pair => pair.Value.ToString());
+			return string.Join(" ", values);
+		}
 
 		public Dictionary<string, int> CountDnaSymbols(string dataset)
 		{
