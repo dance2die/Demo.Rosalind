@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="DNA\Dna.cs" />
     <Compile Include="DNA\DnaTest.cs" />
+    <Compile Include="FIB\FibTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REVC\ReverseComplement.cs" />
     <Compile Include="REVC\ReverseComplementTest.cs" />
@@ -72,6 +73,7 @@
     <Content Include="DNA\rosalind_dna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="FIB\README.txt" />
     <Content Include="REVC\README.txt" />
     <Content Include="REVC\rosalind_revc.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
