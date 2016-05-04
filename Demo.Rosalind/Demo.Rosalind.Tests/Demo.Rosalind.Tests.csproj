@@ -59,6 +59,7 @@
     <Compile Include="DNA\Dna.cs" />
     <Compile Include="DNA\DnaTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="REVC\ReverseComplement.cs" />
     <Compile Include="REVC\ReverseComplementTest.cs" />
     <Compile Include="RNA\Rna.cs" />
     <Compile Include="RNA\RnaTest.cs" />
@@ -72,6 +73,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="REVC\README.txt" />
+    <Content Include="REVC\rosalind_revc.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="RNA\README.txt" />
     <Content Include="RNA\rosalind_rna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

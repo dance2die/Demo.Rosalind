@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -27,24 +26,16 @@ namespace Demo.Rosalind.Tests.REVC
 
 			Assert.Equal(expected, actual);
 		}
-	}
 
-	public class ReverseComplement
-	{
-		public string ReverseComplementDataset(string dataset)
+		[Fact]
+		public void ShowResultForFile()
 		{
-			var reverseComplementMap = new Dictionary<string, string>
-			{
-				{"A", "T"},
-				{"T", "A"},
-				{"C", "G"},
-				{"G", "C"},
-			};
+			const string filePath = @".\REVC\rosalind_revc.txt";
+			string dataset = File.ReadAllText(filePath);
 
-			var sequence =
-				from oneCharText in dataset.Reverse().Select(c => c.ToString())
-				select oneCharText.Replace(oneCharText, reverseComplementMap[oneCharText]);
-			return string.Join("", sequence);
+			string result = _sut.ReverseComplementDataset(dataset);
+
+			_output.WriteLine(result);
 		}
 	}
 }
