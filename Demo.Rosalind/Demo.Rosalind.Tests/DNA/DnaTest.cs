@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
@@ -40,6 +41,16 @@ namespace Demo.Rosalind.Tests.DNA
 			var actual = _sut.BuildOutputString(output);
 
 			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void ShowResultForDownloadedDataSet()
+		{
+			string fileContent = File.ReadAllText(@".\DNA\rosalind_dna.txt");
+			var output = _sut.CountDnaSymbols(fileContent);
+			var result = _sut.BuildOutputString(output);
+
+			_output.WriteLine(result);
 		}
 	}
 
