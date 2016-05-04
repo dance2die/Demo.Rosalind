@@ -59,6 +59,7 @@
     <Compile Include="DNA\Dna.cs" />
     <Compile Include="DNA\DnaTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RNA\Rna.cs" />
     <Compile Include="RNA\RnaTest.cs" />
   </ItemGroup>
   <ItemGroup>
