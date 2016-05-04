@@ -14,31 +14,11 @@ namespace Demo.Rosalind.Tests.FIB
 			_sut = new Fib();
 		}
 
-		[Fact]
-		public void TestFibonacci()
+		[Theory]
+		[InlineData(1, 1, 5, 5)]
+		[InlineData(5, 3, 5, 19)]
+		public void TestFibonacciWithSequenceSpecified(int sequence1, int sequence2, int maxIterations, int expected)
 		{
-			// From http://rosalind.info/problems/fib/
-			const int expected = 5;
-			const int maxIterations = 5;    // k <= 5
-
-			const int sequence1 = 1;
-			const int sequence2 = 1;
-
-			int actual = _sut.GetFibonacciSequence(sequence1, sequence2, maxIterations);
-
-			Assert.Equal(expected, actual);
-		}
-
-		[Fact]
-		public void TestSampleData()
-		{
-			// From http://rosalind.info/problems/fib/
-			const int expected = 19;
-			const int maxIterations = 5;	// k <= 5
-
-			const int sequence1 = 5;
-			const int sequence2 = 3;
-
 			int actual = _sut.GetFibonacciSequence(sequence1, sequence2, maxIterations);
 
 			Assert.Equal(expected, actual);
