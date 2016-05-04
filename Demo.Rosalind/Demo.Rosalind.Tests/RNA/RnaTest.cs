@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,10 +27,28 @@ namespace Demo.Rosalind.Tests.RNA
 
 			Assert.Equal(expected, actual);
 		}
+
+		[Fact]
+		public void TestSampleDataSetInFile()
+		{
+			// from the web site http://rosalind.info/problems/rna/
+			const string expected = "GAUGGAACUUGACUACGUAAAUU";
+			const string filePath = @".\RNA\rosalind_rna.txt";
+
+			string actual = _sut.TranscribeDnaToRnaFromFile(filePath);
+
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class Rna
 	{
+		public string TranscribeDnaToRnaFromFile(string filePath)
+		{
+			string dataset = File.ReadAllText(filePath);
+			return TranscribeDnaToRna(dataset);
+		}
+
 		public string TranscribeDnaToRna(string dataset)
 		{
 			const char fromChar = 'T';
