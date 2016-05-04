@@ -56,16 +56,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DNA\Dna.cs" />
     <Compile Include="DNA\DnaTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RNA\RnaTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DNA\README.txt" />
     <Content Include="DNA\rosalind_dna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="RNA\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
