@@ -29,15 +29,13 @@ namespace Demo.Rosalind.Tests.RNA
 		}
 
 		[Fact]
-		public void TestSampleDataSetInFile()
+		public void TestTranscribingDnaToRnaFromFile()
 		{
-			// from the web site http://rosalind.info/problems/rna/
-			const string expected = "GAUGGAACUUGACUACGUAAAUU";
 			const string filePath = @".\RNA\rosalind_rna.txt";
 
-			string actual = _sut.TranscribeDnaToRnaFromFile(filePath);
+			string result = _sut.TranscribeDnaToRnaFromFile(filePath);
 
-			Assert.Equal(expected, actual);
+			_output.WriteLine(result);
 		}
 	}
 
