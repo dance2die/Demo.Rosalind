@@ -20,7 +20,7 @@ namespace Demo.Rosalind.Tests.DNA
 		}
 
 		[Fact]
-		public void SatisfySampleDataSet()
+		public void TestSampleDataSet()
 		{
 			var expected = new Dictionary<string, int>
 			{
