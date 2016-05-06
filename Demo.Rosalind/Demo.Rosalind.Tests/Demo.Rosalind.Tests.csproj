@@ -78,6 +78,9 @@
     </Content>
     <Content Include="FIB\README.txt" />
     <Content Include="GC\README.txt" />
+    <Content Include="GC\rosalind_gc.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="REVC\README.txt" />
     <Content Include="REVC\rosalind_revc.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

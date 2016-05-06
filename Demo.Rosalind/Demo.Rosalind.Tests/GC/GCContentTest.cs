@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
@@ -134,6 +135,15 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 			string actual = _sut.GetHighestGCContentText(SAMPLE_INPUT);
 
 			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string inputText = File.ReadAllText(@".\GC\rosalind_gc.txt");
+			string result = _sut.GetHighestGCContentText(inputText);
+
+			_output.WriteLine(result);
 		}
 	}
 

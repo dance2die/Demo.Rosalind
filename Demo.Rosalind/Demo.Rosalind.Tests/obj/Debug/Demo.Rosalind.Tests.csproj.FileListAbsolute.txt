@@ -18,3 +18,4 @@ C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\
 C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\obj\Debug\Demo.Rosalind.Tests.csprojResolveAssemblyReference.cache
 C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\obj\Debug\Demo.Rosalind.Tests.dll
 C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\obj\Debug\Demo.Rosalind.Tests.pdb
+C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\GC\rosalind_gc.txt
