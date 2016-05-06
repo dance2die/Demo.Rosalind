@@ -58,17 +58,74 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 		}
 
 		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		public void TestParseFourDigitCodeFromFastaIdThrowsExceptionForEmptyFastaId(string emptyFastaId)
+		{
+			Assert.Throws<ArgumentException>(() => _sut.ParseFourDigitCode(emptyFastaId));
+		}
+
+		[Theory]
+		[InlineData("aaa")]
+		[InlineData("Rosalind")]
+		public void TestParseFourDigitCodeFromFastaIdThrowsExceptionForFastaIdWithoutCorrectPrefix(string badFastaId)
+		{
+			Assert.Throws<ArgumentException>(() => _sut.ParseFourDigitCode(badFastaId));
+		}
+
+		[Theory]
+		[InlineData("Rosalind_123")]
+		[InlineData("Rosalind_12")]
+		[InlineData("Rosalind_1")]
+		public void ThrowExceptionIfFastaIdDoesntHaveFourDigitCode(string badFastaId)
+		{
+			Assert.Throws<ArgumentException>(() => _sut.ParseFourDigitCode(badFastaId));
+		}
+
+		[Theory]
+		[InlineData("Rosalind_abc")]
+		[InlineData("Rosalind_a")]
+		[InlineData("Rosalind_xx")]
+		public void ThrowExceptionIfFourDigitCodeIsNotNumeric(string badFastaId)
+		{
+			Assert.Throws<ArgumentException>(() => _sut.ParseFourDigitCode(badFastaId));
+		}
+
+		[Theory]
 		[InlineData("Rosalind_6404", 6404)]
 		[InlineData("Rosalind_5959", 5959)]
 		[InlineData("Rosalind_0808", 0808)]
 		public void TestParseFourDigitCodeFromFastaId(string fastaId, int expected)
 		{
-			
+			var actual =_sut.ParseFourDigitCode(fastaId);
+
+			Assert.Equal(expected, actual);
 		}
 	}
 
 	public class GCContent
 	{
+		public int ParseFourDigitCode(string fastaId)
+		{
+			if (string.IsNullOrWhiteSpace(fastaId))
+				throw new ArgumentException();
+
+			const string fastaIdPrefix = "Rosalind_";
+			if (!fastaId.StartsWith(fastaIdPrefix)) 
+				throw new ArgumentException();
+
+			string code = fastaId.Substring(fastaIdPrefix.Length);
+			if (code.Length != 4)
+				throw new ArgumentException();
+
+			int result;
+			bool isParsed = int.TryParse(code, out result);
+			if (!isParsed)
+				throw new ArgumentException();
+
+			return result;
+		}
+
 		public IEnumerable<string> GetFastaIds(Dictionary<string, string> gcContent)
 		{
 			return gcContent.Keys;
