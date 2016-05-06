@@ -40,10 +40,31 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 
 			Assert.True(actual.SequenceEqual(expected));
 		}
+
+		[Fact]
+		public void TestGetFastaIds()
+		{
+			var expected = new List<string>
+			{
+				">Rosalind_6404",
+				">Rosalind_5959",
+				">Rosalind_0808"
+			};
+
+			var gcContent = _sut.ComputeGCContent(SAMPLE_INPUT);
+			var actual = _sut.GetFastaIds(gcContent);
+
+			Assert.True(actual.SequenceEqual(expected));
+		}
 	}
 
 	public class GCContent
 	{
+		public IEnumerable<string> GetFastaIds(Dictionary<string, string> gcContent)
+		{
+			return gcContent.Keys;
+		}
+
 		public Dictionary<string, string> ComputeGCContent(string input)
 		{
 			Dictionary<string, string> result = new Dictionary<string, string>();
