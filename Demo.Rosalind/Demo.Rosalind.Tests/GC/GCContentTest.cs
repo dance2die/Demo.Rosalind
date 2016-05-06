@@ -31,9 +31,9 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 		{
 			var expected = new Dictionary<string, string>
 			{
-				{">Rosalind_6404", "CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCCTCCCACTAATAATTCTGAGG"},
-				{">Rosalind_5959", "CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCTATATCCATTTGTCAGCAGACACGC"},
-				{">Rosalind_0808", "CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT"}
+				{"Rosalind_6404", "CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCCTCCCACTAATAATTCTGAGG"},
+				{"Rosalind_5959", "CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCTATATCCATTTGTCAGCAGACACGC"},
+				{"Rosalind_0808", "CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT"}
 			};
 
 			Dictionary<string, string> actual = _sut.ComputeGCContent(SAMPLE_INPUT);
@@ -46,15 +46,22 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 		{
 			var expected = new List<string>
 			{
-				">Rosalind_6404",
-				">Rosalind_5959",
-				">Rosalind_0808"
+				"Rosalind_6404",
+				"Rosalind_5959",
+				"Rosalind_0808"
 			};
 
 			var gcContent = _sut.ComputeGCContent(SAMPLE_INPUT);
 			var actual = _sut.GetFastaIds(gcContent);
 
 			Assert.True(actual.SequenceEqual(expected));
+		}
+
+		[Theory]
+		[InlineData()]
+		public void TestParseFourDigitCodeFromFastaId(string fastaId, int expected)
+		{
+			
 		}
 	}
 
@@ -69,10 +76,10 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 		{
 			Dictionary<string, string> result = new Dictionary<string, string>();
 
-			var splitted = input.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+			var splitted = input.Split(new[] { '\n', '\r', '>'}, StringSplitOptions.RemoveEmptyEntries);
 			var currentKey = string.Empty;
 			// if a line starts with this, then it's a key
-			const string keyPrefix = ">";
+			const string keyPrefix = "Rosalind";
 
 			foreach (var line in splitted)
 			{
