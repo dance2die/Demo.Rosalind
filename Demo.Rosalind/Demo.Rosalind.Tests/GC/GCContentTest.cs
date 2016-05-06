@@ -37,7 +37,7 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 				{"Rosalind_0808", "CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT"}
 			};
 
-			Dictionary<string, string> actual = _sut.ComputeGCContent(SAMPLE_INPUT);
+			Dictionary<string, string> actual = _sut.ComputeGCContents(SAMPLE_INPUT);
 
 			Assert.True(actual.SequenceEqual(expected));
 		}
@@ -52,7 +52,7 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 				"Rosalind_0808"
 			};
 
-			var gcContent = _sut.ComputeGCContent(SAMPLE_INPUT);
+			var gcContent = _sut.ComputeGCContents(SAMPLE_INPUT);
 			var actual = _sut.GetFastaIds(gcContent);
 
 			Assert.True(actual.SequenceEqual(expected));
@@ -113,10 +113,59 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 			const int precision = 3;	// 0.001
 			Assert.Equal(expected, actual, precision);
 		}
+
+		[Fact]
+		public void GetHighestGCContent()
+		{
+			const string expected = "Rosalind_0808";
+
+			Dictionary<string, string> gcContentMap = _sut.ComputeGCContents(SAMPLE_INPUT);
+			string actual = _sut.GetHighestGCContent(gcContentMap);
+
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void TestOutputHiestGCContent()
+		{
+			const string expected = @"Rosalind_0808
+60.919540";
+
+			string actual = _sut.GetHighestGCContentText(SAMPLE_INPUT);
+
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class GCContent
 	{
+		public string GetHighestGCContentText(string input)
+		{
+			Dictionary<string, string> gcContentMap = ComputeGCContents(input);
+			string key = GetHighestGCContent(gcContentMap);
+
+			const int validDeicmals = 6;
+			var gcContent = Math.Round(GetGCContent(gcContentMap[key]), validDeicmals);
+			return string.Format("{0}{1}{2}", key, Environment.NewLine, gcContent);
+		}
+
+		public string GetHighestGCContent(Dictionary<string, string> gcContentMap)
+		{
+			string maxGCContentKey = string.Empty;
+			decimal maxGCContent = 0;
+			foreach (KeyValuePair<string, string> content in gcContentMap)
+			{
+				decimal gcContent = GetGCContent(content.Value);
+				if (maxGCContent < gcContent)
+				{
+					maxGCContent = gcContent;
+					maxGCContentKey = content.Key;
+				}
+			}
+
+			return maxGCContentKey;
+		}
+
 		public decimal GetGCContent(string dnaString)
 		{
 			int gCount = 0;
@@ -161,7 +210,7 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 			return gcContent.Keys;
 		}
 
-		public Dictionary<string, string> ComputeGCContent(string input)
+		public Dictionary<string, string> ComputeGCContents(string input)
 		{
 			Dictionary<string, string> result = new Dictionary<string, string>();
 
