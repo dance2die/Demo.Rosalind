@@ -58,7 +58,9 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 		}
 
 		[Theory]
-		[InlineData()]
+		[InlineData("Rosalind_6404", 6404)]
+		[InlineData("Rosalind_5959", 5959)]
+		[InlineData("Rosalind_0808", 0808)]
 		public void TestParseFourDigitCodeFromFastaId(string fastaId, int expected)
 		{
 			
