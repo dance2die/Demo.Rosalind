@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -101,10 +102,39 @@ TGGGAACCTGCGGGCAGTAGGTGGAAT";
 
 			Assert.Equal(expected, actual);
 		}
+		
+		[Theory]
+		[InlineData("AGCTATAG", 37.5)]
+		[InlineData("CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT", 60.919540)]
+		public void TestGetGCContent(string dnaString, decimal expected)
+		{
+			decimal actual = _sut.GetGCContent(dnaString);
+
+			const int precision = 3;	// 0.001
+			Assert.Equal(expected, actual, precision);
+		}
 	}
 
 	public class GCContent
 	{
+		public decimal GetGCContent(string dnaString)
+		{
+			int gCount = 0;
+			int cCount = 0;
+			foreach (var dnaChar in dnaString)
+			{
+				if (dnaChar == 'C') cCount++;
+				if (dnaChar == 'G') gCount++;
+			}
+
+			int countSum = gCount + cCount;
+			if (countSum == 0)
+				return 0;
+
+			decimal result = (decimal) (countSum * 100) / dnaString.Length;
+			return result;
+		}
+
 		public int ParseFourDigitCode(string fastaId)
 		{
 			if (string.IsNullOrWhiteSpace(fastaId))
