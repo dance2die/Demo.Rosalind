@@ -30,10 +30,36 @@ CATCGTAATGACGGCCT";
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
+
+		[Fact]
+		public void TestCalculatingHammingDistance()
+		{
+			const int expected = 7;
+
+			int actual = _sut.CalculateHammingDistance(SAMPLE_INPUT);
+
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class Hamm
 	{
+		public int CalculateHammingDistance(string input)
+		{
+			var texts = ParseInput(input).ToArray();
+			var s = texts[0];
+			var t = texts[1];
+
+			int distance = 0;
+			for (int i = 0; i < s.Length; i++)
+			{
+				if (s[i] != t[i])
+					distance++;
+			}
+
+			return distance;
+		}
+
 		public IEnumerable<string> ParseInput(string input)
 		{
 			return input.Split(new [] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
