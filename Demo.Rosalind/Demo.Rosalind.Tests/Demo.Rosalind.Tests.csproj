@@ -84,6 +84,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="HAMM\README.txt" />
+    <Content Include="HAMM\rosalind_hamm.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="REVC\README.txt" />
     <Content Include="REVC\rosalind_revc.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

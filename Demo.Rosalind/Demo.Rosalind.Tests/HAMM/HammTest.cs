@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -39,6 +38,16 @@ CATCGTAATGACGGCCT";
 			int actual = _sut.CalculateHammingDistance(SAMPLE_INPUT);
 
 			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string inputText = File.ReadAllText(@".\HAMM\rosalind_hamm.txt");
+
+			int result = _sut.CalculateHammingDistance(inputText);
+
+			_output.WriteLine(result.ToString());
 		}
 	}
 
