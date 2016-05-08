@@ -20,3 +20,4 @@ C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\obj\Debug\
 C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\obj\Debug\Demo.Rosalind.Tests.pdb
 C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\GC\rosalind_gc.txt
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\HAMM\rosalind_hamm.txt
+C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\PROT\rosalind_prot.txt

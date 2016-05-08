@@ -67,6 +67,7 @@
     <Compile Include="GC\GcContent.cs" />
     <Compile Include="GC\GCContentTest.cs" />
     <Compile Include="HAMM\HammTest.cs" />
+    <Compile Include="PROT\Prot.cs" />
     <Compile Include="PROT\ProtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REVC\ReverseComplement.cs" />
@@ -89,6 +90,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PROT\README.txt" />
+    <Content Include="PROT\rosalind_prot.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="REVC\README.txt" />
     <Content Include="REVC\rosalind_revc.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
