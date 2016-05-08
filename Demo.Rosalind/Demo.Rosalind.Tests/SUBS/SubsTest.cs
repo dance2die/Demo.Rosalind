@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
@@ -35,6 +36,17 @@ ATAT";
 			var expected = new[] { 2, 4, 10 };
 
 			IEnumerable<int> actual = _sut.GetSubstringCounts(SAMPLE_DATASET);
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Fact]
+		public void TestSampleDatasetFromFile()
+		{
+			var expected = new[] { 2, 4, 10 };
+
+			string inputText = File.ReadAllText(@".\SUBS\rosalind_subs.txt");
+			IEnumerable<int> actual = _sut.GetSubstringCounts(inputText);
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
