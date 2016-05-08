@@ -74,6 +74,7 @@
     <Compile Include="REVC\ReverseComplementTest.cs" />
     <Compile Include="RNA\Rna.cs" />
     <Compile Include="RNA\RnaTest.cs" />
+    <Compile Include="SUBS\SubsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DNA\README.txt" />
@@ -101,6 +102,7 @@
     <Content Include="RNA\rosalind_rna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SUBS\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
