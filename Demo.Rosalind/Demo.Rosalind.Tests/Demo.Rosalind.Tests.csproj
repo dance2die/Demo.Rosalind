@@ -74,6 +74,7 @@
     <Compile Include="REVC\ReverseComplementTest.cs" />
     <Compile Include="RNA\Rna.cs" />
     <Compile Include="RNA\RnaTest.cs" />
+    <Compile Include="SUBS\Subs.cs" />
     <Compile Include="SUBS\SubsTest.cs" />
   </ItemGroup>
   <ItemGroup>
