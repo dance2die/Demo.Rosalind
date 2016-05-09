@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="DNA\Dna.cs" />
     <Compile Include="DNA\DnaTest.cs" />
+    <Compile Include="FIBD\FibdTest.cs" />
     <Compile Include="FIB\Fib.cs" />
     <Compile Include="FIB\FibTest.cs" />
     <Compile Include="GC\GcContent.cs" />
@@ -82,6 +83,7 @@
     <Content Include="DNA\rosalind_dna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="FIBD\README.txt" />
     <Content Include="FIB\README.txt" />
     <Content Include="GC\README.txt" />
     <Content Include="GC\rosalind_gc.txt">
