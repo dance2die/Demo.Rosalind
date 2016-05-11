@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using System.Numerics;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -26,13 +22,23 @@ namespace Demo.Rosalind.Tests.FIBD
 		[InlineData("8 3", 7)]
 		[InlineData("9 3", 9)]
 		[InlineData("10 3", 12)]
+		// http://metalpolyglot.com/dev/ruby/wascally-wabbits-season/
+		// Cache
+		// http://webcache.googleusercontent.com/search?q=cache:6CvYeQ6O-mQJ:metalpolyglot.com/dev/ruby/wascally-wabbits-season/+&cd=4&hl=en&ct=clnk&gl=us
 		[InlineData("11 3", 16)]
 		[InlineData("12 3", 21)]
 		[InlineData("13 3", 28)]
 		[InlineData("14 3", 37)]
+		[InlineData("15 3", 49)]
+		[InlineData("16 3", 65)]
+		[InlineData("17 3", 86)]
+		[InlineData("18 3", 114)]
+		[InlineData("19 3", 151)]
+		[InlineData("20 3", 200)]
+		[InlineData("21 3", 265)]
 		public void TestSampleDataSet(string input, int expected)
 		{
-			int actual = _sut.MortalFibonacci(input);
+			BigInteger actual = _sut.MortalFibonacci2(input);
 
 			Assert.Equal(expected, actual);
 		}
@@ -41,7 +47,7 @@ namespace Demo.Rosalind.Tests.FIBD
 		public void TestSampleDataInFile()
 		{
 			string inputText = File.ReadAllText(@".\FIBD\rosalind_fibd_sample.txt");
-			int actual = _sut.MortalFibonacci(inputText);
+			BigInteger actual = _sut.MortalFibonacci2(inputText);
 			const int expected = 4;
 
 			Assert.Equal(expected, actual);
@@ -51,84 +57,9 @@ namespace Demo.Rosalind.Tests.FIBD
 		public void ShowResult()
 		{
 			string inputText = File.ReadAllText(@".\FIBD\rosalind_fibd.txt");
-			int result = _sut.MortalFibonacci(inputText);
+			var result = _sut.MortalFibonacci2(inputText);
 
 			_output.WriteLine(result.ToString());
-		}
-	}
-
-	public class Fibd
-	{
-		public int MortalFibonacci(string input)
-		{
-			var splited = input.Split(' ');
-			int count = int.Parse(splited[0]);
-			int life = int.Parse(splited[1]);
-			const int initialAge = 1;
-
-			Rabbit rootRabbit = new Rabbit(null, initialAge);
-			List<Rabbit> leafRabbits = GetLeafRabbits(rootRabbit, life).ToList();
-			List<Rabbit> rabbits = new List<Rabbit>
-			{
-				new Rabbit(null, 1),
-				new Rabbit(null, 2)
-			};
-
-
-			for (int i = 4; i <= count; i++)
-			{
-				var tempRabbits = rabbits.Count > 0 ? new List<Rabbit>(rabbits.Where(r => r.Age <= life)) : leafRabbits;
-
-				foreach (Rabbit rabbit in tempRabbits)
-				{
-					if (i == count)
-					{
-						//return GetLeafRabbits(rootRabbit, life).Count(r => r.Age <= life);
-						return rabbits.Count(r => r.Age <= life);
-					}
-
-					if (2 <= rabbit.Age && rabbit.Age <= life)
-					{
-						//rabbit.Add(new Rabbit(rabbit, initialAge));
-						rabbits.Add(new Rabbit(null, initialAge));
-					}
-
-					rabbit.Age++;
-				}
-			}
-
-			return 1;
-		}
-
-		//private void RemoveDeadRabbits(IEnumerable<Rabbit> rabbits, int life)
-		//{
-		//	var rabbitList = rabbits.ToList();
-		//	for (int i = 0; i < rabbitList.Count; i++)
-		//	{
-		//		var rabbit = rabbitList[i];
-		//		if (rabbit.Parent != null && rabbit.Age > life)
-		//			rabbit.Parent.Remove(rabbit);
-		//	}
-		//}
-
-		private IEnumerable<Rabbit> GetLeafRabbits(Rabbit rabbits, int life)
-		{
-			if (rabbits.Age <= life)
-				yield return rabbits;
-
-			foreach (Component component in rabbits.GetChildren())
-			{
-				var rabbit = component as Rabbit;
-				if (rabbit != null)
-				{
-					foreach (var leafRabbit in GetLeafRabbits(rabbit, life))
-					{
-						yield return leafRabbit;
-					}
-				}
-			}
-
-			yield break;
 		}
 	}
 }

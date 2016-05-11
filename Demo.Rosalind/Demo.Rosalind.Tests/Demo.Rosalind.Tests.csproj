@@ -63,6 +63,7 @@
     <Compile Include="DNA\Dna.cs" />
     <Compile Include="DNA\DnaTest.cs" />
     <Compile Include="FIBD\Component.cs" />
+    <Compile Include="FIBD\Fibd.cs" />
     <Compile Include="FIBD\FibdTest.cs" />
     <Compile Include="FIBD\Rabbit.cs" />
     <Compile Include="FIB\Fib.cs" />
