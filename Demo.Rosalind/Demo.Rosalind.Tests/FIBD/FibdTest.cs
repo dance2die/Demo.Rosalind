@@ -26,6 +26,10 @@ namespace Demo.Rosalind.Tests.FIBD
 		[InlineData("8 3", 7)]
 		[InlineData("9 3", 9)]
 		[InlineData("10 3", 12)]
+		[InlineData("11 3", 16)]
+		[InlineData("12 3", 21)]
+		[InlineData("13 3", 28)]
+		[InlineData("14 3", 37)]
 		public void TestSampleDataSet(string input, int expected)
 		{
 			int actual = _sut.MortalFibonacci(input);
@@ -63,21 +67,34 @@ namespace Demo.Rosalind.Tests.FIBD
 			const int initialAge = 1;
 
 			Rabbit rootRabbit = new Rabbit(null, initialAge);
-			for (int i = 1; i <= count; i++)
+			List<Rabbit> leafRabbits = GetLeafRabbits(rootRabbit, life).ToList();
+			List<Rabbit> rabbits = new List<Rabbit>
 			{
-				var leafRabbits = GetLeafRabbits(rootRabbit, life).ToList();
-				foreach (Rabbit rabbit in leafRabbits)
+				new Rabbit(null, 1),
+				new Rabbit(null, 2)
+			};
+
+
+			for (int i = 4; i <= count; i++)
+			{
+				var tempRabbits = rabbits.Count > 0 ? new List<Rabbit>(rabbits.Where(r => r.Age <= life)) : leafRabbits;
+
+				foreach (Rabbit rabbit in tempRabbits)
 				{
 					if (i == count)
-						return GetLeafRabbits(rootRabbit, life).Count(r => r.Age <= life);
+					{
+						//return GetLeafRabbits(rootRabbit, life).Count(r => r.Age <= life);
+						return rabbits.Count(r => r.Age <= life);
+					}
 
 					if (2 <= rabbit.Age && rabbit.Age <= life)
-						rabbit.Add(new Rabbit(rabbit, initialAge));
+					{
+						//rabbit.Add(new Rabbit(rabbit, initialAge));
+						rabbits.Add(new Rabbit(null, initialAge));
+					}
 
 					rabbit.Age++;
 				}
-
-				//RemoveDeadRabbits(leafRabbits, life);
 			}
 
 			return 1;
