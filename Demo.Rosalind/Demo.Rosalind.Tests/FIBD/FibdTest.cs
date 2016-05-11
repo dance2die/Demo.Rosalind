@@ -42,25 +42,46 @@ namespace Demo.Rosalind.Tests.FIBD
 			int count = int.Parse(splited[0]);
 			int life = int.Parse(splited[1]);
 
-			var sum = new List<Rabbit> {new Rabbit(2)};
-			for (int i = 2; i <= count; i++)
-			{
-				sum.ForEach(rabbit => rabbit.Age++);
-				sum.Add(new Rabbit(1));
-				sum.RemoveAll(rabbit => rabbit.Age >= 3);
-			}
+
 
 			return 1;
 		}
 	}
 
-	public class Rabbit
+	/// <summary>
+	/// The 'Component' abstract class
+	/// </summary>
+	public abstract class Component
 	{
+		public abstract void Add(Component c);
+		public abstract void Remove(Component c);
+		public abstract IEnumerable<Component> GetChildren();
+	}
+
+	public class Rabbit : Component
+	{
+		private readonly List<Component> _children = new List<Component>();
+
 		public int Age { get; set; }
 
 		public Rabbit(int age)
 		{
 			Age = age;
+		}
+
+		public override void Add(Component c)
+		{
+			_children.Add(c);
+		}
+
+		public override void Remove(Component c)
+		{
+			_children.Remove(c);
+		}
+
+		public override IEnumerable<Component> GetChildren()
+		{
+			return _children;
 		}
 
 		public override string ToString()
