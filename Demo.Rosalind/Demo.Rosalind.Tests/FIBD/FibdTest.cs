@@ -23,9 +23,9 @@ namespace Demo.Rosalind.Tests.FIBD
 		[Theory]
 		[InlineData("6 3", 4)]
 		[InlineData("7 3", 5)]
-		[InlineData("8 3", 5)]
-		[InlineData("9 3", 6)]
-		[InlineData("10 3", 10)]
+		[InlineData("8 3", 7)]
+		[InlineData("9 3", 9)]
+		[InlineData("10 3", 12)]
 		public void TestSampleDataSet(string input, int expected)
 		{
 			int actual = _sut.MortalFibonacci(input);
@@ -41,10 +41,43 @@ namespace Demo.Rosalind.Tests.FIBD
 			var splited = input.Split(' ');
 			int count = int.Parse(splited[0]);
 			int life = int.Parse(splited[1]);
+			const int initialAge = 1;
 
+			Rabbit rootRabbit = new Rabbit(null, initialAge);
+			for (int i = 1; i <= count; i++)
+			{
+				var leafRabbits = GetLeafRabbits(rootRabbit).ToList();
+				foreach (Rabbit rabbit in leafRabbits)
+				{
+					if (i == count)
+						return GetLeafRabbits(rootRabbit).Count(r => r.Age <= 3);
 
+					if (2 <= rabbit.Age && rabbit.Age <= 3)
+						rabbit.Add(new Rabbit(rabbit, initialAge));
+
+					rabbit.Age++;
+				}
+			}
 
 			return 1;
+		}
+
+		private IEnumerable<Rabbit> GetLeafRabbits(Rabbit rabbits)
+		{
+			if (rabbits.Age <= 3)
+				yield return rabbits;
+
+			foreach (Component component in rabbits.GetChildren())
+			{
+				var rabbit = component as Rabbit;
+				if (rabbit != null)
+					foreach (var leafRabbit in GetLeafRabbits(rabbit))
+					{
+						yield return leafRabbit;
+					}
+			}
+
+			yield break;
 		}
 	}
 
@@ -63,9 +96,11 @@ namespace Demo.Rosalind.Tests.FIBD
 		private readonly List<Component> _children = new List<Component>();
 
 		public int Age { get; set; }
+		public Rabbit Parent { get; set; }
 
-		public Rabbit(int age)
+		public Rabbit(Rabbit parent, int age)
 		{
+			Parent = parent;
 			Age = age;
 		}
 
@@ -86,7 +121,7 @@ namespace Demo.Rosalind.Tests.FIBD
 
 		public override string ToString()
 		{
-			return string.Format("Rabbit.Age: {0}", Age);
+			return string.Format("Rabbit.Age: {0}; Children: {1}", Age, _children.Count);
 		}
 	}
 }
