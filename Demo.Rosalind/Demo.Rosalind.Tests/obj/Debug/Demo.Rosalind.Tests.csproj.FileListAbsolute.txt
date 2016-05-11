@@ -22,3 +22,5 @@ C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\HAMM\rosalind_hamm.txt
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\PROT\rosalind_prot.txt
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\SUBS\rosalind_subs.txt
+C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\FIBD\rosalind_fibd_sample.txt
+C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\FIBD\rosalind_fibd.txt

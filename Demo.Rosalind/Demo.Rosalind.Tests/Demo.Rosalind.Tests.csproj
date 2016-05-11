@@ -84,6 +84,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="FIBD\README.txt" />
+    <Content Include="FIBD\rosalind_fibd.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="FIBD\rosalind_fibd_sample.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="FIB\README.txt" />
     <Content Include="GC\README.txt" />
     <Content Include="GC\rosalind_gc.txt">
