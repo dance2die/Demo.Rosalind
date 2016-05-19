@@ -71,6 +71,7 @@
     <Compile Include="GC\GcContent.cs" />
     <Compile Include="GC\GCContentTest.cs" />
     <Compile Include="BaseTest.cs" />
+    <Compile Include="GRPH\Grph.cs" />
     <Compile Include="GRPH\GrphTest.cs" />
     <Compile Include="HAMM\HammTest.cs" />
     <Compile Include="MRNA\Mrna.cs" />
@@ -105,6 +106,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="GRPH\README.txt" />
+    <Content Include="GRPH\rosalind_grph.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="HAMM\README.txt" />
     <Content Include="HAMM\rosalind_hamm.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
