@@ -104,6 +104,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MRNA\README.txt" />
+    <Content Include="MRNA\rosalind_mrna.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PROT\README.txt" />
     <Content Include="PROT\rosalind_prot.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

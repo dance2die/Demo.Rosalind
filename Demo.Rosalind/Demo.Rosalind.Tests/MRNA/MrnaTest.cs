@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -37,6 +38,16 @@ namespace Demo.Rosalind.Tests.MRNA
 			BigInteger actual = _sut.GetPossibleRnaStringCountFromProtein(SAMPLE_DATASET);
 
 			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string inputText = File.ReadAllText(@".\MRNA\rosalind_mrna.txt");
+
+			BigInteger result = _sut.GetPossibleRnaStringCountFromProtein(inputText);
+
+			_output.WriteLine(result.ToString());
 		}
 	}
 
