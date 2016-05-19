@@ -25,3 +25,4 @@ C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\FIBD\rosalind_fibd_sample.txt
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\FIBD\rosalind_fibd.txt
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\MRNA\rosalind_mrna.txt
+C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\PRTM\rosalind_prtm.txt
