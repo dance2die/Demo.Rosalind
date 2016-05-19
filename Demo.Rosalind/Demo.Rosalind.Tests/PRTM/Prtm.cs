@@ -20,6 +20,7 @@ namespace Demo.Rosalind.Tests.PRTM
 			{
 				result += _monoisotopicMassTable[c.ToString()];
 			}
+			//double result = input.Sum(c => _monoisotopicMassTable[c.ToString()]);
 
 			const int digits = 3;
 			return Math.Round(result, digits);
