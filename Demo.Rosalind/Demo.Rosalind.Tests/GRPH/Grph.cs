@@ -12,13 +12,10 @@ namespace Demo.Rosalind.Tests.GRPH
 		public string OverlapGraphs(string input)
 		{
 			Dictionary<string, string> rows = ParseDataset(input);
-			List<string> processedKeys = new List<string>();
 			StringBuilder buffer = new StringBuilder();
 
 			foreach (KeyValuePair<string, string> row in rows)
 			{
-				processedKeys.Add(row.Key);
-
 				//var unprocessedRows = rows.Where(p => !processedKeys.Contains(p.Key));
 				var unprocessedRows = rows.Where(p => p.Key != row.Key);
 				foreach (var unprocessedRow in unprocessedRows)
