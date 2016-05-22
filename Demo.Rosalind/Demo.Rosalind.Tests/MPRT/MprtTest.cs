@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Rosalind.Lib.Util;
 using Xunit;
 using Xunit.Abstractions;
@@ -30,6 +31,10 @@ namespace Demo.Rosalind.Tests.MPRT
 	public class MprtTest : BaseTest
 	{
 		private readonly Mprt _sut;
+		private const string SAMPLE_DATASET = @"A2Z669
+B5ZC00
+P07204_TRBM_HUMAN
+P20840_SAG1_YEAST";
 
 		public MprtTest(ITestOutputHelper output) : base(output)
 		{
@@ -82,8 +87,7 @@ namespace Demo.Rosalind.Tests.MPRT
 		public async void TestDownloadingFastaFilesFromUniprot(string uniprotUrl, string fastaFilePath)
 		{
 			// Download FASTA file.
-			HttpClient httpClient = new HttpClient();
-			var remoteFastaString = await httpClient.GetStringAsync(uniprotUrl);
+			var remoteFastaString = await _sut.GetFastaFileByUniprotId(uniprotUrl);
 
 			// Get local FASTA file.
 			var localFastaString = File.ReadAllText(fastaFilePath);
@@ -99,6 +103,19 @@ namespace Demo.Rosalind.Tests.MPRT
 
 			Assert.Equal(localSequence, remoteSequence);
 		}
+
+//		[Fact]
+//		public void TestSampleDataset()
+//		{
+//			const string expected = @"B5ZC00
+//85 118 142 306 395
+//P07204_TRBM_HUMAN
+//47 115 116 382 409
+//P20840_SAG1_YEAST
+//79 109 135 248 306 348 364 402 485 501 614";
+
+//			string actual = _sut.BuildNGlycosylationOutput(SAMPLE_DATASET);
+//		}
 	}
 
 	public class Mprt
@@ -106,6 +123,14 @@ namespace Demo.Rosalind.Tests.MPRT
 		// http://stackoverflow.com/a/37370533/4035
 		private const string NGLYCOSYLATION_REGEX_PATTERN = "(?=N[^P][ST][^P]).";
 		private const string UNIPROT_URL_FORMAT = "http://www.uniprot.org/uniprot/{0}.fasta";
+
+		//public string BuildNGlycosylationOutput(string uniprotIds)
+		//{
+		//	// Parse Uniprot IDs
+
+		//	// Foreach ID in uniprot IDs,
+		//	//	Fetch
+		//}
 
 		public string GetUniprotUrl(string uniprotId)
 		{
@@ -122,16 +147,22 @@ namespace Demo.Rosalind.Tests.MPRT
 			return string.Join(" ", locations);
 		}
 
-		public IEnumerable<int> GetNGlycosylationLocations(string input)
+		public IEnumerable<int> GetNGlycosylationLocations(string proteinSequence)
 		{
 			Regex regex = new Regex(NGLYCOSYLATION_REGEX_PATTERN, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-			MatchCollection matches = regex.Matches(input);
+			MatchCollection matches = regex.Matches(proteinSequence);
 			foreach (Match match in matches)
 			{
 				// Need to add 1 to because match index is 0 based
 				const int offset = 1;
 				yield return match.Index + offset;
 			}
+		}
+
+		public async Task<string> GetFastaFileByUniprotId(string uniprotUrl)
+		{
+			HttpClient httpClient = new HttpClient();
+			return await httpClient.GetStringAsync(uniprotUrl);
 		}
 	}
 }
