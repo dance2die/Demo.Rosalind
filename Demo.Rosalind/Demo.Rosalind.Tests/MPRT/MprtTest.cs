@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using Rosalind.Lib.Util;
 using Xunit;
@@ -71,6 +72,32 @@ namespace Demo.Rosalind.Tests.MPRT
 			string actual = _sut.GetUniprotUrl(uniprotId);
 
 			Assert.Equal(expected, actual);
+		}
+
+		[Theory]
+		[InlineData("http://www.uniprot.org/uniprot/A2Z669.fasta", "./MPRT/A2Z669.fasta.txt")]
+		[InlineData("http://www.uniprot.org/uniprot/B5ZC00.fasta", "./MPRT/B5ZC00.fasta.txt")]
+		[InlineData("http://www.uniprot.org/uniprot/P07204_TRBM_HUMAN.fasta", "./MPRT/P07204_TRBM_HUMAN.fasta.txt")]
+		[InlineData("http://www.uniprot.org/uniprot/P20840_SAG1_YEAST.fasta", "./MPRT/P20840_SAG1_YEAST.fasta.txt")]
+		public async void TestDownloadingFastaFilesFromUniprot(string uniprotUrl, string fastaFilePath)
+		{
+			// Download FASTA file.
+			HttpClient httpClient = new HttpClient();
+			var remoteFastaString = await httpClient.GetStringAsync(uniprotUrl);
+
+			// Get local FASTA file.
+			var localFastaString = File.ReadAllText(fastaFilePath);
+
+			// Parse remote and local FASTA strings
+			FastaReader reader = new FastaReader();
+			var remoteDictionary = reader.ParseDataset(remoteFastaString);
+			var localDictionary = reader.ParseDataset(localFastaString);
+
+			// Compare sequence strings of first item in the dictionary.
+			string remoteSequence = remoteDictionary.First().Value;
+			string localSequence = localDictionary.First().Value;
+
+			Assert.Equal(localSequence, remoteSequence);
 		}
 	}
 
