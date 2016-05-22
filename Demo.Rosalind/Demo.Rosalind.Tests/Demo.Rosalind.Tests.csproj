@@ -114,6 +114,18 @@
     <Content Include="HAMM\rosalind_hamm.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MPRT\A2Z669.fasta.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MPRT\B5ZC00.fasta.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MPRT\P07204_TRBM_HUMAN.fasta.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MPRT\P20840_SAG1_YEAST.fasta.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MPRT\README.txt" />
     <Content Include="MRNA\README.txt" />
     <Content Include="MRNA\rosalind_mrna.txt">
