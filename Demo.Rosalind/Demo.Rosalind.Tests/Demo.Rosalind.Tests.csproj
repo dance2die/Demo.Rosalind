@@ -74,6 +74,7 @@
     <Compile Include="GRPH\Grph.cs" />
     <Compile Include="GRPH\GrphTest.cs" />
     <Compile Include="HAMM\HammTest.cs" />
+    <Compile Include="MPRT\MprtTest.cs" />
     <Compile Include="MRNA\Mrna.cs" />
     <Compile Include="MRNA\MrnaTest.cs" />
     <Compile Include="PROT\Prot.cs" />
@@ -141,6 +142,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rosalind.Lib\Rosalind.Lib.csproj">
+      <Project>{e24230fc-fc3b-45c0-b9fd-70a7d99f6274}</Project>
+      <Name>Rosalind.Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

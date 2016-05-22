@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Rosalind.Lib.Util;
 
 namespace Demo.Rosalind.Tests.GRPH
 {
@@ -38,28 +39,8 @@ namespace Demo.Rosalind.Tests.GRPH
 
 		public Dictionary<string, string> ParseDataset(string dataset)
 		{
-			Dictionary<string, string> result = new Dictionary<string, string>();
-
-			var lines = dataset.Split(new [] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
-
-			string previousKey = "";
-			foreach (string line in lines)
-			{
-				if (line.StartsWith(">"))
-				{
-					// Remove ">" from the key
-					var key = line.Split('>')[1];
-					result[key] = string.Empty;
-
-					previousKey = key;
-				}
-				else
-				{
-					result[previousKey] += line;
-				}
-			}
-
-			return result;
+			FastaReader reader = new FastaReader();
+			return reader.ParseDataset(dataset);
 		}
 	}
 }
