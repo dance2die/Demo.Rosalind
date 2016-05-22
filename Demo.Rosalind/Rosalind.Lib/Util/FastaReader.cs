@@ -19,9 +19,11 @@ namespace Rosalind.Lib.Util
 		{
 			Dictionary<string, string> result = new Dictionary<string, string>();
 
-			var lines = fastaText.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+			string[] separators = { Environment.NewLine, "\n", "\r" };
+			var splitOptions = StringSplitOptions.RemoveEmptyEntries;
+			var lines = fastaText.Split(separators, splitOptions);
 
-			string previousKey = "";
+			string previousKey = string.Empty;
 			foreach (string line in lines)
 			{
 				if (line.StartsWith(">"))
