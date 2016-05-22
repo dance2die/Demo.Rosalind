@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 
 namespace Demo.Rosalind.Tests.MPRT
 {
@@ -13,9 +8,25 @@ namespace Demo.Rosalind.Tests.MPRT
 
 		public MprtTest(ITestOutputHelper output) : base(output)
 		{
+			_sut = new Mprt();
 		}
 
-		// Test sceraniors
+		/*
+			Test Scenarios
+
+			Download sample FASTA from www.uniprot.org.
+				Parse FASTA and find N-glycosylation motif locations in FASTA sequence
+				Combine found locations into a string.
+
+			Parse N-glycosylation motif
+
+			Parse Sample DataSet.
+
+			Build UniProt URL for FASTA File
+
+			Download FASTA files
+				Parse FASTA file
+		*/
 
 	}
 
