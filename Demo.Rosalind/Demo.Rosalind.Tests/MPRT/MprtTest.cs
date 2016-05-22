@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -64,7 +65,8 @@ namespace Demo.Rosalind.Tests.MPRT
 
 	public class Mprt
 	{
-		private const string NGLYCOSYLATION_REGEX_PATTERN = "(?<NGrlyosylation>N[^P][ST][^P])";
+		// http://stackoverflow.com/a/37370533/4035
+		private const string NGLYCOSYLATION_REGEX_PATTERN = "(?=N[^P][ST][^P]).";
 
 		public string GetNGlycosylationLocationString(string uniprotId, string fastaText)
 		{
@@ -76,22 +78,9 @@ namespace Demo.Rosalind.Tests.MPRT
 			return string.Join(" ", locations);
 		}
 
-		//public IEnumerable<int> GetNGlycosylationLocations(string input)
-		//{
-		//	Regex regex = new Regex(NGLYCOSYLATION_REGEX_PATTERN, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-		//	MatchCollection matches = regex.Matches(input);
-		//	foreach (Match match in matches)
-		//	{
-		//		// Need to add 1 to because match index is 0 based
-		//		const int offset = 1;
-		//		yield return match.Index + offset;
-		//	}
-		//}
-
 		public IEnumerable<int> GetNGlycosylationLocations(string input)
 		{
-			input = "NNTSY";
-			Regex regex = new Regex("(?<NGrlyosylation>N[^P][ST][^P])", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+			Regex regex = new Regex(NGLYCOSYLATION_REGEX_PATTERN, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 			MatchCollection matches = regex.Matches(input);
 			foreach (Match match in matches)
 			{
