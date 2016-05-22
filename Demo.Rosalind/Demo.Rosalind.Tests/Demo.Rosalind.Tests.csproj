@@ -113,6 +113,7 @@
     <Content Include="HAMM\rosalind_hamm.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MPRT\README.txt" />
     <Content Include="MRNA\README.txt" />
     <Content Include="MRNA\rosalind_mrna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
