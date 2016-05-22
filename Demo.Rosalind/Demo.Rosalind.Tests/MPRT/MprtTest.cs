@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -61,12 +60,30 @@ namespace Demo.Rosalind.Tests.MPRT
 
 			Assert.Equal(expected, actual);
 		}
+
+		[Theory]
+		[InlineData("A2Z669", "http://www.uniprot.org/uniprot/A2Z669.fasta")]
+		[InlineData("B5ZC00", "http://www.uniprot.org/uniprot/B5ZC00.fasta")]
+		[InlineData("P07204_TRBM_HUMAN", "http://www.uniprot.org/uniprot/P07204_TRBM_HUMAN.fasta")]
+		[InlineData("P20840_SAG1_YEAST", "http://www.uniprot.org/uniprot/P20840_SAG1_YEAST.fasta")]
+		public void TestUniprotFastaLink(string uniprotId, string expected)
+		{
+			string actual = _sut.GetUniprotUrl(uniprotId);
+
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class Mprt
 	{
 		// http://stackoverflow.com/a/37370533/4035
 		private const string NGLYCOSYLATION_REGEX_PATTERN = "(?=N[^P][ST][^P]).";
+		private const string UNIPROT_URL_FORMAT = "http://www.uniprot.org/uniprot/{0}.fasta";
+
+		public string GetUniprotUrl(string uniprotId)
+		{
+			return string.Format(UNIPROT_URL_FORMAT, uniprotId);
+		}
 
 		public string GetNGlycosylationLocationString(string uniprotId, string fastaText)
 		{
