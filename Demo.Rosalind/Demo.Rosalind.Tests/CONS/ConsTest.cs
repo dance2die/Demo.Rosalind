@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace Demo.Rosalind.Tests.CONS
 {
