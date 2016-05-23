@@ -43,5 +43,15 @@ namespace Rosalind.Lib.Util
 			return result;
 		}
 
+		public IEnumerable<string> GetDnaStrings(string fastaString)
+		{
+			FastaReader reader = new FastaReader();
+			var dictionary = reader.ParseDataset(fastaString);
+
+			foreach (KeyValuePair<string, string> pair in dictionary)
+			{
+				yield return pair.Value;
+			}
+		}
 	}
 }
