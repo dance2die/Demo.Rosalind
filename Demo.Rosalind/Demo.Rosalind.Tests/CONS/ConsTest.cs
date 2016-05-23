@@ -60,10 +60,10 @@ ATGGCACT";
 		{
 			ProfileMatrix expected = new ProfileMatrix
 			{
-				A = new List<int> { 5, 1, 0, 0, 5, 5, 0, 0 },
-				C = new List<int> { 0, 0, 1, 4, 2, 0, 6, 1 },
-				G = new List<int> { 1, 1, 6, 3, 0, 1, 0, 0 },
-				T = new List<int> { 1, 5, 0, 0, 0, 1, 1, 6 }
+				A = new [] { 5, 1, 0, 0, 5, 5, 0, 0 },
+				C = new [] { 0, 0, 1, 4, 2, 0, 6, 1 },
+				G = new [] { 1, 1, 6, 3, 0, 1, 0, 0 },
+				T = new [] { 1, 5, 0, 0, 0, 1, 1, 6 }
 			};
 
 			ProfileMatrix actual = _sut.GetProfileMatrix(SAMPLE_DATASET);
@@ -120,19 +120,24 @@ ATGGCACT";
 
 	public class ProfileMatrix
 	{
-		public List<int> A { get; set; } = new List<int>();
-		public List<int> C { get; set; } = new List<int>();
-		public List<int> G { get; set; } = new List<int>();
-		public List<int> T { get; set; } = new List<int>();
+		public int[] A { get; set; }
+		public int[] C { get; set; }
+		public int[] G { get; set; }
+		public int[] T { get; set; }
 
 		public void InitializeMatrix(int columnCount)
 		{
+			A = new int[columnCount];
+			C = new int[columnCount];
+			G = new int[columnCount];
+			T = new int[columnCount];
+
 			for (int i = 0; i < columnCount; i++)
 			{
-				A.Add(0);
-				C.Add(0);
-				G.Add(0);
-				T.Add(0);
+				A[i] = 0;
+				C[i] = 0;
+				G[i] = 0;
+				T[i] = 0;
 			}
 		}
 	}
