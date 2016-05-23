@@ -1,0 +1,5 @@
+C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Rosalind.Lib\bin\Debug\Rosalind.Lib.dll
+C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Rosalind.Lib\bin\Debug\Rosalind.Lib.pdb
+C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Rosalind.Lib\obj\Debug\Rosalind.Lib.csprojResolveAssemblyReference.cache
+C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Rosalind.Lib\obj\Debug\Rosalind.Lib.dll
+C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Rosalind.Lib\obj\Debug\Rosalind.Lib.pdb
