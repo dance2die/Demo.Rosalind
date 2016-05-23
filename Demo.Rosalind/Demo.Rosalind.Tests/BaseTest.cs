@@ -14,10 +14,10 @@ namespace Demo.Rosalind.Tests
 
 
 		// http://stackoverflow.com/a/17545215/4035
-		protected bool EqualsExcludingWhitespace(string a, string b)
+		protected bool EqualsExcludingWhitespace(string expected, string actual)
 		{
-			return a.Where(c => !char.IsWhiteSpace(c))
-			   .SequenceEqual(b.Where(c => !char.IsWhiteSpace(c)));
+			return expected.Where(c => !char.IsWhiteSpace(c))
+			   .SequenceEqual(actual.Where(c => !char.IsWhiteSpace(c)));
 		}
 
 	}
