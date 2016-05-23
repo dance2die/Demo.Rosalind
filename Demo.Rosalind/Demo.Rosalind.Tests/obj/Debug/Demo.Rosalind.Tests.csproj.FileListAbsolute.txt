@@ -34,3 +34,4 @@ C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\MPRT\P07204_TRBM_HUMAN.fasta.txt
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\MPRT\P20840_SAG1_YEAST.fasta.txt
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\MPRT\rosalind_mprt.txt
+C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\CONS\rosalind_cons.txt

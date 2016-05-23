@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Rosalind.Lib.Util;
@@ -114,6 +115,16 @@ T: 1 5 0 0 0 1 1 6";
 
 			Assert.True(EqualsExcludingWhitespace(expected, actual));
 		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string input = File.ReadAllText(@".\CONS\rosalind_cons.txt");
+
+			string result = _sut.GetOutput(input);
+
+			_output.WriteLine(result);
+		}
 	}
 
 	public class Cons
@@ -138,9 +149,9 @@ T: 1 5 0 0 0 1 1 6";
 
 				var maxValue = new [] {valueA, valueC, valueG, valueT}.Max();
 				if (maxValue == valueA) yield return 'A';
-				if (maxValue == valueC) yield return 'C';
-				if (maxValue == valueG) yield return 'G';
-				if (maxValue == valueT) yield return 'T';
+				else if (maxValue == valueC) yield return 'C';
+				else if (maxValue == valueG) yield return 'G';
+				else if (maxValue == valueT) yield return 'T';
 			}
 		}
 

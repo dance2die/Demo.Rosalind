@@ -93,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CONS\README.txt" />
+    <Content Include="CONS\rosalind_cons.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="DNA\README.txt" />
     <Content Include="DNA\rosalind_dna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
