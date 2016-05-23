@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CONS\ConsTest.cs" />
     <Compile Include="DNA\Dna.cs" />
     <Compile Include="DNA\DnaTest.cs" />
     <Compile Include="FIBD\Component.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="SUBS\SubsTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CONS\README.txt" />
     <Content Include="DNA\README.txt" />
     <Content Include="DNA\rosalind_dna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
