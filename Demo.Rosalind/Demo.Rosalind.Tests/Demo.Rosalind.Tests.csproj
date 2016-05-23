@@ -74,6 +74,7 @@
     <Compile Include="GRPH\Grph.cs" />
     <Compile Include="GRPH\GrphTest.cs" />
     <Compile Include="HAMM\HammTest.cs" />
+    <Compile Include="MPRT\Mprt.cs" />
     <Compile Include="MPRT\MprtTest.cs" />
     <Compile Include="MRNA\Mrna.cs" />
     <Compile Include="MRNA\MrnaTest.cs" />
@@ -127,6 +128,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MPRT\README.txt" />
+    <Content Include="MPRT\rosalind_mprt.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MRNA\README.txt" />
     <Content Include="MRNA\rosalind_mrna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
