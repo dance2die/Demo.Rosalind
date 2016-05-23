@@ -101,26 +101,30 @@ T: 1 5 0 0 0 1 1 6";
 			Assert.True(EqualsExcludingWhitespace(expected, actual));
 		}
 
-//		[Fact]
-//		public void TestOutput()
-//		{
-//			const string expected = @"ATGCAACT
-//A: 5 1 0 0 5 5 0 0
-//C: 0 0 1 4 2 0 6 1
-//G: 1 1 6 3 0 1 0 0
-//T: 1 5 0 0 0 1 1 6";
+		[Fact]
+		public void TestOutput()
+		{
+			const string expected = @"ATGCAACT
+A: 5 1 0 0 5 5 0 0
+C: 0 0 1 4 2 0 6 1
+G: 1 1 6 3 0 1 0 0
+T: 1 5 0 0 0 1 1 6";
 
-//			string actual = _sut.GetOutput(SAMPLE_DATASET);
+			string actual = _sut.GetOutput(SAMPLE_DATASET);
 
-//			Assert.Equal(expected, actual);
-//		}
+			Assert.True(EqualsExcludingWhitespace(expected, actual));
+		}
 	}
 
 	public class Cons
 	{
-		//public string GetOutput(string fastaString)
-		//{
-		//}
+		public string GetOutput(string fastaString)
+		{
+			ProfileMatrix profileMatrix = GetProfileMatrix(fastaString);
+			string consensusString = new string(GetConsensusString(profileMatrix).ToArray());
+
+			return string.Format("{0}{1}{2}", consensusString, Environment.NewLine, profileMatrix);
+		}
 
 		public IEnumerable<char> GetConsensusString(ProfileMatrix profileMatrix)
 		{
