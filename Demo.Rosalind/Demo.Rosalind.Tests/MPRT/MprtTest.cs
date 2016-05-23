@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Rosalind.Lib.Util;
@@ -87,7 +89,7 @@ P20840_SAG1_YEAST";
 		public async void TestDownloadingFastaFilesFromUniprot(string uniprotUrl, string fastaFilePath)
 		{
 			// Download FASTA file.
-			var remoteFastaString = await _sut.GetFastaFileByUniprotId(uniprotUrl);
+			var remoteFastaString = await _sut.GetFastaFileByUniprotUrl(uniprotUrl);
 
 			// Get local FASTA file.
 			var localFastaString = File.ReadAllText(fastaFilePath);
@@ -104,18 +106,20 @@ P20840_SAG1_YEAST";
 			Assert.Equal(localSequence, remoteSequence);
 		}
 
-//		[Fact]
-//		public void TestSampleDataset()
-//		{
-//			const string expected = @"B5ZC00
-//85 118 142 306 395
-//P07204_TRBM_HUMAN
-//47 115 116 382 409
-//P20840_SAG1_YEAST
-//79 109 135 248 306 348 364 402 485 501 614";
+		[Fact]
+		public async void TestSampleDataset()
+		{
+			const string expected = @"B5ZC00
+85 118 142 306 395
+P07204_TRBM_HUMAN
+47 115 116 382 409
+P20840_SAG1_YEAST
+79 109 135 248 306 348 364 402 485 501 614";
 
-//			string actual = _sut.BuildNGlycosylationOutput(SAMPLE_DATASET);
-//		}
+			string actual = await _sut.BuildNGlycosylationOutput(SAMPLE_DATASET);
+
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class Mprt
@@ -124,23 +128,44 @@ P20840_SAG1_YEAST";
 		private const string NGLYCOSYLATION_REGEX_PATTERN = "(?=N[^P][ST][^P]).";
 		private const string UNIPROT_URL_FORMAT = "http://www.uniprot.org/uniprot/{0}.fasta";
 
-		//public string BuildNGlycosylationOutput(string uniprotIds)
-		//{
-		//	// Parse Uniprot IDs
+		public async Task<string> BuildNGlycosylationOutput(string uniprotIdsString)
+		{
+			// Parse Uniprot IDs
+			string[] uniprotIds = uniprotIdsString.Split(
+				new [] { Environment.NewLine, "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
 
-		//	// Foreach ID in uniprot IDs,
-		//	//	Fetch
-		//}
+			// Foreach ID in uniprot IDs,
+			//	Download remote FASTA file.
+			//	Parse the FASTA file.
+			//	Calculate N-Glycosylation Location String
+			//	Add the uniprot ID as a key and location string as value
+			StringBuilder buffer = new StringBuilder();
+			foreach (string uniprotId in uniprotIds)
+			{
+				// Download remote FASTA file.
+				string uniprotUrl = GetUniprotUrl(uniprotId);
+				string remoteFastaString = await GetFastaFileByUniprotUrl(uniprotUrl);
+
+				// Calculate N-Glycosylation Location String
+				var locationString = GetNGlycosylationLocationString(uniprotId, remoteFastaString);
+
+				// Add the result to the buffer
+				if (!string.IsNullOrWhiteSpace(locationString))
+					buffer.AppendLine(uniprotId).AppendLine(locationString);
+			}
+
+			return buffer.ToString();
+		}
 
 		public string GetUniprotUrl(string uniprotId)
 		{
 			return string.Format(UNIPROT_URL_FORMAT, uniprotId);
 		}
 
-		public string GetNGlycosylationLocationString(string uniprotId, string fastaText)
+		public string GetNGlycosylationLocationString(string uniprotId, string fastaString)
 		{
 			FastaReader reader = new FastaReader();
-			Dictionary<string, string> dictionary = reader.ParseDataset(fastaText);
+			Dictionary<string, string> dictionary = reader.ParseDataset(fastaString);
 			string input = dictionary.First().Value;
 
 			var locations = GetNGlycosylationLocations(input).Select(location => location.ToString());
@@ -159,7 +184,7 @@ P20840_SAG1_YEAST";
 			}
 		}
 
-		public async Task<string> GetFastaFileByUniprotId(string uniprotUrl)
+		public async Task<string> GetFastaFileByUniprotUrl(string uniprotUrl)
 		{
 			HttpClient httpClient = new HttpClient();
 			return await httpClient.GetStringAsync(uniprotUrl);
