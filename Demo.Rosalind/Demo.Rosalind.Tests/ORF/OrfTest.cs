@@ -18,14 +18,23 @@ namespace Demo.Rosalind.Tests.ORF
 		[Fact]
 		public void TestConvertDnaToRnaString()
 		{
-			const string dnaString = "AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG";
+			const string dnaString = "ATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTC";
 			//const string dnaString = "ATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCC";
 			var rna = new Rna();
 			var rnaString = rna.ConvertDnaToRna(dnaString);
 			string proteinString = rna.ConvertRnaToProtein(rnaString, "|");
 
-			//_output.WriteLine("rnaString: {0}", rnaString);
+			_output.WriteLine("rnaString: {0}", rnaString);
 			_output.WriteLine("proteinString: {0}", proteinString);
+
+			ReverseComplement reverseComplement = new ReverseComplement();
+			var reverseComplementedDnaString = reverseComplement.ReverseComplementDataset(dnaString);
+
+			rnaString = rna.ConvertDnaToRna(reverseComplementedDnaString);
+			proteinString = rna.ConvertRnaToProtein(rnaString, "|");
+
+			_output.WriteLine("Reverse Completed rnaString: {0}", rnaString);
+			_output.WriteLine("Reverse Completed proteinString: {0}", proteinString);
 
 			for (int i = 0; i < dnaString.Length; i++)
 			{
@@ -33,7 +42,7 @@ namespace Demo.Rosalind.Tests.ORF
 				{
 					try
 					{
-						var substring = dnaString.Substring(i, j - i);
+						var substring = dnaString.Substring(i, j);
 						//_output.WriteLine("substring: {0}", substring);
 						rnaString = rna.ConvertDnaToRna(substring);
 						proteinString = rna.ConvertRnaToProtein(rnaString, "|");
@@ -51,44 +60,6 @@ namespace Demo.Rosalind.Tests.ORF
 						//_output.WriteLine("Nothing in position: {0}", i);
 					}
 
-				}
-			}
-
-
-
-			ReverseComplement reverseComplement = new ReverseComplement();
-			var reverseComplementedDnaString = reverseComplement.ReverseComplementDataset(dnaString);
-
-			rnaString = rna.ConvertDnaToRna(reverseComplementedDnaString);
-			proteinString = rna.ConvertRnaToProtein(rnaString, "|");
-
-			//_output.WriteLine("Reverse Completed rnaString: {0}", rnaString);
-			//_output.WriteLine("Reverse Completed proteinString: {0}", proteinString);
-
-			for (int i = 0; i < dnaString.Length; i++)
-			{
-				for (int j = dnaString.Length - 1; j >= 0; j--)
-				{
-					try
-					{
-						var substring = dnaString.Substring(i, j - i);
-						//_output.WriteLine("substring: {0}", substring);
-						rnaString = rna.ConvertDnaToRna(substring);
-						proteinString = rna.ConvertRnaToProtein(rnaString, "|");
-
-						//_output.WriteLine("rnaString: {0}", rnaString);
-						if (proteinString.StartsWith("M") && proteinString.IndexOf("|") > 0)
-						{
-							_output.WriteLine("Reverse Completed proteinString: {0}", proteinString);
-							//_output.WriteLine(new string('=', 80));
-						}
-						break;
-					}
-					catch (Exception e)
-					{
-						//_output.WriteLine("Nothing in position: {0}", i);
-					}
-					
 				}
 			}
 		}
@@ -116,42 +87,67 @@ namespace Demo.Rosalind.Tests.ORF
 		{
 			var rna = new Rna();
 
-			for (int i = 0; i < dnaString.Length; i++)
-			{
-				for (int j = dnaString.Length - 1; j >= 0; j--)
-				{
-					string proteinString = string.Empty;
-					try
-					{
-						var substring = dnaString.Substring(i, j - i);
-						var rnaString = rna.ConvertDnaToRna(substring);
-						proteinString = rna.ConvertRnaToProtein(rnaString, "|");
-					}
-					catch (Exception e)
-					{
-						Console.WriteLine(e);
-					}
+			const int keyLength = 3;
 
-					//_output.WriteLine("rnaString: {0}", rnaString);
-					if (proteinString.StartsWith("M") && proteinString.IndexOf("|") > 0)
-					{
-						//_output.WriteLine("proteinString: {0}", proteinString);
-						//_output.WriteLine(new string('=', 80));
-						yield return proteinString;
-					}
-					break;
-				}
-			}
-
-			for (int i = 0; i < dnaString.Length; i++)
+			for (int i = 0; i < dnaString.Length; i += keyLength)
 			{
 				var substring = dnaString.Substring(i, dnaString.Length - i);
 				var rnaString = rna.ConvertDnaToRna(substring);
-				var proteinString = rna.ConvertRnaToProtein(rnaString, "|");
+				var proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
 
-				if (proteinString.StartsWith("M") && proteinString.IndexOf("|") > 0)
+				if (proteinString.StartsWith("M") && proteinString.IndexOf(delimiter) > 0)
 					yield return proteinString;
 			}
+
+			for (int i = 0; i < dnaString.Length; i++)
+			{
+				var substring = dnaString.Substring(i, dnaString.Length - 1 - i);
+				var rnaString = rna.ConvertDnaToRna(substring);
+				var proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
+
+				//_output.WriteLine("rnaString: {0}", rnaString);
+				if (proteinString.StartsWith("M") && proteinString.IndexOf(delimiter) > 0)
+					yield return proteinString;
+			}
+
+			//for (int j = dnaString.Length; j >= 0; j -= 3)
+			//{
+			//	var substring = dnaString.Substring(0, j);
+			//	var rnaString = rna.ConvertDnaToRna(substring);
+			//	var proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
+
+			//	if (proteinString.StartsWith("M") && proteinString.IndexOf(delimiter) > 0)
+			//		yield return proteinString;
+			//}
+
+
+			//for (int i = 0; i < dnaString.Length; i++)
+			//{
+			//	for (int j = dnaString.Length - 1; j >= 0; j--)
+			//	{
+			//		string proteinString = string.Empty;
+			//		try
+			//		{
+			//			var substring = dnaString.Substring(i, j - i);
+			//			var rnaString = rna.ConvertDnaToRna(substring);
+			//			proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
+			//		}
+			//		catch (Exception e)
+			//		{
+			//			Console.WriteLine(e);
+			//		}
+
+			//		//_output.WriteLine("rnaString: {0}", rnaString);
+			//		if (proteinString.StartsWith("M") && proteinString.IndexOf(delimiter) > 0)
+			//		{
+			//			//_output.WriteLine("proteinString: {0}", proteinString);
+			//			//_output.WriteLine(new string('=', 80));
+			//			yield return proteinString;
+			//		}
+			//		break;
+			//	}
+			//}
+
 		}
 	}
 
