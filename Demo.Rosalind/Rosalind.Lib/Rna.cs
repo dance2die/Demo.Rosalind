@@ -38,10 +38,14 @@ namespace Rosalind.Lib
 		/// <remarks>Copied from "Prot.EncodeRnaString(...)"</remarks>
 		public string ConvertRnaToProtein(string rnaString, string stopCharacter = "")
 		{
-			StringBuilder buffer = new StringBuilder();
-
 			// length of a key in RNA Code table
 			const int keyLength = 3;
+
+			if (rnaString.Length % keyLength != 0)
+				return string.Empty;
+
+			StringBuilder buffer = new StringBuilder();
+
 			for (int i = 0; i < rnaString.Length; i += 3)
 			{
 				string key = rnaString.Substring(i, keyLength);
