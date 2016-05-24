@@ -1,6 +1,7 @@
 ﻿using Rosalind.Lib;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -87,41 +88,7 @@ namespace Demo.Rosalind.Tests.ORF
 		{
 			var rna = new Rna();
 
-			const int keyLength = 3;
-
-			//for (int i = 0; i < dnaString.Length; i += keyLength)
-			//{
-			//	var substring = dnaString.Substring(i, dnaString.Length - i);
-			//	var rnaString = rna.ConvertDnaToRna(substring);
-			//	var proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
-
-			//	if (proteinString.StartsWith("M") && proteinString.IndexOf(delimiter) > 0)
-			//		yield return proteinString;
-			//}
-
-			//for (int i = 0; i < dnaString.Length; i++)
-			//{
-			//	var substring = dnaString.Substring(i, dnaString.Length - 1 - i);
-			//	var rnaString = rna.ConvertDnaToRna(substring);
-			//	var proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
-
-			//	//_output.WriteLine("rnaString: {0}", rnaString);
-			//	if (proteinString.StartsWith("M") && proteinString.IndexOf(delimiter) > 0)
-			//		yield return proteinString;
-			//}
-
-			//for (int j = dnaString.Length; j >= 0; j -= 3)
-			//{
-			//	var substring = dnaString.Substring(0, j);
-			//	var rnaString = rna.ConvertDnaToRna(substring);
-			//	var proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
-
-			//	if (proteinString.StartsWith("M") && proteinString.IndexOf(delimiter) > 0)
-			//		yield return proteinString;
-			//}
-
 			List<string> proteinStrings = new List<string>();
-
 			for (int i = 0; i < dnaString.Length; i++)
 			{
 				for (int j = dnaString.Length - 1; j - i > 0; j--)
@@ -152,9 +119,78 @@ namespace Demo.Rosalind.Tests.ORF
 
 			return false;
 		}
+
+		[Fact]
+		public void TestReturningOnlyNeededProteinStrings()
+		{
+			var expected = new []
+			{
+				"M|LTQVTWG|PRDLD|SLFWNKPE|SE|HL",
+				"MGMTPRLGLESLLE|A|MIRVAS",
+				"MLLGSFRLIPKETLIQVAGSSPCNLS|LHG",
+				"M|PELATW"
+			};
+
+			const string dnaString = "AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG";
+			IEnumerable<string> actual = _sut.GetProtineStrings(dnaString);
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
 	}
 
 	public class Orf
 	{
+		public IEnumerable<string> GetProtineStrings(string dnaString)
+		{
+			// Return in-order strings
+			foreach (string proteinString in GetProteinStringsWithDelimiters(dnaString))
+			{
+				yield return proteinString;
+			}
+
+			// Return reverse complement strings
+			ReverseComplement reverseComplement = new ReverseComplement();
+			var reverseComplementedDnaString = reverseComplement.ReverseComplementDataset(dnaString);
+			foreach (string proteinString in GetProteinStringsWithDelimiters(reverseComplementedDnaString))
+			{
+				yield return proteinString;
+			}
+		}
+
+		public IEnumerable<string> GetProteinStringsWithDelimiters(string dnaString, string delimiter = "|")
+		{
+			var rna = new Rna();
+
+			List<string> proteinStrings = new List<string>();
+			for (int i = 0; i < dnaString.Length; i++)
+			{
+				for (int j = dnaString.Length - 1; j - i > 0; j--)
+				{
+					var substring = dnaString.Substring(i, j - i);
+					var rnaString = rna.ConvertDnaToRna(substring);
+					var proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
+
+					if (proteinString.StartsWith("M") &&
+						!ListContainsSubstring(proteinStrings, proteinString) &&
+						proteinString.IndexOf(delimiter) > 0)
+					{
+						proteinStrings.Add(proteinString);
+						yield return proteinString;
+					}
+				}
+			}
+
+		}
+
+		private bool ListContainsSubstring(IEnumerable<string> proteinStrings, string proteinString)
+		{
+			foreach (string processedProteinString in proteinStrings)
+			{
+				if (processedProteinString.IndexOf(proteinString) >= 0)
+					return true;
+			}
+
+			return false;
+		}
 	}
 }
