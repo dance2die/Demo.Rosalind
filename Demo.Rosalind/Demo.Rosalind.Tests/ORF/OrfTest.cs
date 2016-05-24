@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -132,7 +133,25 @@ namespace Demo.Rosalind.Tests.ORF
 			};
 
 			const string dnaString = "AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG";
-			IEnumerable<string> actual = _sut.GetProtineStrings(dnaString);
+			IEnumerable<string> actual = _sut.GetProteinStrings(dnaString);
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Fact]
+		public void TestParsingProteinStringsWithDelimeters()
+		{
+			var expected = new[]
+			{
+				"MLLGSFRLIPKETLIQVAGSSPCNLS",
+				"M",
+				"MGMTPRLGLESLLE",
+				"MTPRLGLESLLE"
+			};
+
+			const string dnaString = "AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG";
+			IEnumerable<string> proteinStringsWithDelimiters = _sut.GetProteinStrings(dnaString);
+			IEnumerable<string> actual = _sut.GetDistinctCandidateProtineStringsFromOrf(proteinStringsWithDelimiters).ToList();
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
@@ -140,7 +159,28 @@ namespace Demo.Rosalind.Tests.ORF
 
 	public class Orf
 	{
-		public IEnumerable<string> GetProtineStrings(string dnaString)
+		private const string PATTERN = @"(?=(M[^\|]*)\|).";
+
+		public IEnumerable<string> GetDistinctCandidateProtineStringsFromOrf(IEnumerable<string> proteinStringsWithDelimiters)
+		{
+			Regex regex = new Regex(PATTERN, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+			List<Match> matchResult = new List<Match>();
+			foreach (var proteinStringsWithDelimiter in proteinStringsWithDelimiters)
+			{
+				var matches = regex.Matches(proteinStringsWithDelimiter);
+				matchResult.AddRange(matches.OfType<Match>());
+				//foreach (Match match in matches)
+				//{
+				//	yield return match.Groups[1].Value;
+				//}
+			}
+			return matchResult
+				.Select(match => match.Groups[1].Value)
+				.Distinct();
+		}
+
+		public IEnumerable<string> GetProteinStrings(string dnaString)
 		{
 			// Return in-order strings
 			foreach (string proteinString in GetProteinStringsWithDelimiters(dnaString))
@@ -179,7 +219,6 @@ namespace Demo.Rosalind.Tests.ORF
 					}
 				}
 			}
-
 		}
 
 		private bool ListContainsSubstring(IEnumerable<string> proteinStrings, string proteinString)
