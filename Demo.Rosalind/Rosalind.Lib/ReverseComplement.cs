@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Demo.Rosalind.Tests.REVC
+namespace Rosalind.Lib
 {
 	public class ReverseComplement
 	{

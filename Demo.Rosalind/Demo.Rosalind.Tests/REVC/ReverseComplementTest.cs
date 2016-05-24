@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Rosalind.Lib;
 using Xunit;
 using Xunit.Abstractions;
 

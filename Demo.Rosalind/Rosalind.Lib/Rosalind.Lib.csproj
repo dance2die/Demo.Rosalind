@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dna.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReverseComplement.cs" />
+    <Compile Include="Rna.cs" />
     <Compile Include="Util\FastaReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -81,12 +81,12 @@
     <Compile Include="MPRT\MprtTest.cs" />
     <Compile Include="MRNA\Mrna.cs" />
     <Compile Include="MRNA\MrnaTest.cs" />
+    <Compile Include="ORF\OrfTest.cs" />
     <Compile Include="PROT\Prot.cs" />
     <Compile Include="PROT\ProtTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PRTM\Prtm.cs" />
     <Compile Include="PRTM\PrtmTest.cs" />
-    <Compile Include="REVC\ReverseComplement.cs" />
     <Compile Include="REVC\ReverseComplementTest.cs" />
     <Compile Include="RNA\Rna.cs" />
     <Compile Include="RNA\RnaTest.cs" />
@@ -142,6 +142,7 @@
     <Content Include="MRNA\rosalind_mrna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ORF\README.txt" />
     <Content Include="PROT\README.txt" />
     <Content Include="PROT\rosalind_prot.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

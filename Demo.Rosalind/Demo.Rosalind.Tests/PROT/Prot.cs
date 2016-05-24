@@ -22,14 +22,17 @@ namespace Demo.Rosalind.Tests.PROT
 			{"GGU", "G"}, {"GGC", "G"}, {"GGA", "G"}, {"GGG", "G"},
 		};
 
-		public string EncodeRnaString(string input)
+		/// <summary>
+		/// Convert rnaString to protein string
+		/// </summary>
+		public string EncodeRnaString(string rnaString)
 		{
 			StringBuilder buffer = new StringBuilder();
 
 			const int keyLength = 3;	// length of a key in RNA Code table
-			for (int i = 0; i < input.Length; i += 3)
+			for (int i = 0; i < rnaString.Length; i += 3)
 			{
-				string key = input.Substring(i, keyLength);
+				string key = rnaString.Substring(i, keyLength);
 				string encodedValue = _rnaCodonTable[key];
 				if (encodedValue.ToUpper() != "STOP")
 					buffer.Append(encodedValue);
