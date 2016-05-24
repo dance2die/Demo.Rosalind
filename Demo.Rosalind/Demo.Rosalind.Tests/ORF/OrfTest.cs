@@ -120,6 +120,7 @@ namespace Demo.Rosalind.Tests.ORF
 			//		yield return proteinString;
 			//}
 
+			List<string> proteinStrings = new List<string>();
 
 			for (int i = 0; i < dnaString.Length; i++)
 			{
@@ -129,12 +130,27 @@ namespace Demo.Rosalind.Tests.ORF
 					var rnaString = rna.ConvertDnaToRna(substring);
 					var proteinString = rna.ConvertRnaToProtein(rnaString, delimiter);
 
-					//_output.WriteLine("rnaString: {0}", rnaString);
-					if (proteinString.StartsWith("M") && proteinString.IndexOf(delimiter) > 0)
+					if (proteinString.StartsWith("M") &&
+						!ListContainsSubstring(proteinStrings, proteinString) &&
+						proteinString.IndexOf(delimiter) > 0)
+					{
+						proteinStrings.Add(proteinString);
 						yield return proteinString;
+					}
 				}
 			}
 
+		}
+
+		private bool ListContainsSubstring(IEnumerable<string> proteinStrings, string proteinString)
+		{
+			foreach (string processedProteinString in proteinStrings)
+			{
+				if (processedProteinString.IndexOf(proteinString) >= 0)
+					return true;
+			}
+
+			return false;
 		}
 	}
 
