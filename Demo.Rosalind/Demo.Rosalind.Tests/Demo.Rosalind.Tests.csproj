@@ -81,6 +81,7 @@
     <Compile Include="MPRT\MprtTest.cs" />
     <Compile Include="MRNA\Mrna.cs" />
     <Compile Include="MRNA\MrnaTest.cs" />
+    <Compile Include="ORF\Orf.cs" />
     <Compile Include="ORF\OrfTest.cs" />
     <Compile Include="PROT\Prot.cs" />
     <Compile Include="PROT\ProtTest.cs" />
