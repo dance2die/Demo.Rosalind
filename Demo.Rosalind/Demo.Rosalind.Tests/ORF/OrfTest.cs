@@ -1,8 +1,10 @@
 ﻿using Rosalind.Lib;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Rosalind.Lib.Util;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -154,6 +156,21 @@ namespace Demo.Rosalind.Tests.ORF
 			IEnumerable<string> actual = _sut.GetDistinctCandidateProtineStringsFromOrf(proteinStringsWithDelimiters).ToList();
 
 			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string fastaString = File.ReadAllText(@".\ORF\rosalind_orf.txt");
+			FastaReader reader = new FastaReader();
+			Dictionary<string, string> dictionary = reader.ParseDataset(fastaString);
+			string dnaString = dictionary.First().Value;
+
+			IEnumerable<string> proteinStringsWithDelimiters = _sut.GetProteinStrings(dnaString);
+			IEnumerable<string> candidateStrings = _sut.GetDistinctCandidateProtineStringsFromOrf(proteinStringsWithDelimiters);
+
+			string result = string.Join("\r\n", candidateStrings);
+			_output.WriteLine(result);
 		}
 	}
 

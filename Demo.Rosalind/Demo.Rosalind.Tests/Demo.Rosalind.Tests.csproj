@@ -143,6 +143,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ORF\README.txt" />
+    <Content Include="ORF\rosalind_orf.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PROT\README.txt" />
     <Content Include="PROT\rosalind_prot.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

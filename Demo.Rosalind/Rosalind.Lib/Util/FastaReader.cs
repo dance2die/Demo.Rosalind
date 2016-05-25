@@ -8,20 +8,20 @@ namespace Rosalind.Lib.Util
 		/// <summary>
 		/// Parse FASTA texts into a dictoinary object instance.
 		/// </summary>
-		/// <param name="fastaText">Text containing Fasta Text</param>
+		/// <param name="fastaString">Text containing Fasta Text</param>
 		/// <returns>
 		/// Parsed FASTA information in a dictionary
 		/// 
 		/// Key: Identifier
 		/// Value: Sequence
 		/// </returns>
-		public Dictionary<string, string> ParseDataset(string fastaText)
+		public Dictionary<string, string> ParseDataset(string fastaString)
 		{
 			Dictionary<string, string> result = new Dictionary<string, string>();
 
 			string[] separators = { Environment.NewLine, "\n", "\r" };
 			var splitOptions = StringSplitOptions.RemoveEmptyEntries;
-			var lines = fastaText.Split(separators, splitOptions);
+			var lines = fastaString.Split(separators, splitOptions);
 
 			string previousKey = string.Empty;
 			foreach (string line in lines)
