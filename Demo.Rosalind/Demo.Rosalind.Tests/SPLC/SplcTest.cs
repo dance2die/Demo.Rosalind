@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Rosalind.Lib;
+using Rosalind.Lib.Util;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -50,10 +48,37 @@ ATCGGTCGAGCGTGT";
 			Assert.Equal(expected, actual);
 		}
 
-		
+		[Fact]
+		public void TestDnaStringAfterRemovingIntrons()
+		{
+			// Removed introns manually from the given input on the web.
+			const string expected = "ATGGTCTACATAGCTGACAAACAGCACGTAGCATCTCGAGAGGCATATGGTCACATGTTCAAAGTTTGCGCCTAG";
+
+			string actual = _sut.TranscribeDnaString(SAMPLE_DATASET);
+
+			Assert.Equal(expected, actual);
+		}
+
 	}
 
 	public class Splc
 	{
+		public string TranscribeDnaString(string fastaString)
+		{
+			FastaReader reader = new FastaReader();
+			var fasta = reader.ParseDataset(fastaString);
+
+			string dnaString = fasta.First().Value;
+			const int skipCount = 1;	// skip the first one
+			var introns = fasta.Skip(skipCount);
+
+			// Remove introns
+			foreach (KeyValuePair<string, string> intron in introns)
+			{
+				dnaString = dnaString.Replace(intron.Value, "");
+			}
+
+			return dnaString;
+		}
 	}
 }
