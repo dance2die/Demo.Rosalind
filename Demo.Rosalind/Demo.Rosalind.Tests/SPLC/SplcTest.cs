@@ -9,6 +9,17 @@ using Xunit.Abstractions;
 
 namespace Demo.Rosalind.Tests.SPLC
 {
+	/// <summary>
+	/// Parse FASTA input.
+	/// First item value is a DNA string to translate.
+	/// Rest of item values are introns that need to be removed from DNA string before transcribing.
+	/// 
+	/// Remove all instances of introns from the DNA string.
+	/// Convert the DNA string to RNA string.
+	/// Convert RNA to protein string.
+	/// 
+	/// Compare the protein string with the expected result.
+	/// </summary>
 	public class SplcTest : BaseTest
 	{
 		private readonly Splc _sut;
@@ -38,6 +49,8 @@ ATCGGTCGAGCGTGT";
 			const string expected = "MVYIADKQHVASREAYGHMFKVCA";
 			Assert.Equal(expected, actual);
 		}
+
+		
 	}
 
 	public class Splc
