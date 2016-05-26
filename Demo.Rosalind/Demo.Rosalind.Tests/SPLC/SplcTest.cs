@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Rosalind.Lib;
 using Rosalind.Lib.Util;
@@ -68,6 +69,16 @@ ATCGGTCGAGCGTGT";
 			string actual = _sut.ConvertToProteinAfterRemovingIntrons(SAMPLE_DATASET);
 
 			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string fastaString = File.ReadAllText(@".\SPLC\rosalind_splc.txt");
+
+			string result = _sut.ConvertToProteinAfterRemovingIntrons(fastaString);
+
+			_output.WriteLine(result);
 		}
 	}
 

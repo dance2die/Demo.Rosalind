@@ -165,6 +165,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SPLC\README.txt" />
+    <Content Include="SPLC\rosalind_splc.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SUBS\README.txt" />
     <Content Include="SUBS\rosalind_subs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
