@@ -91,6 +91,7 @@
     <Compile Include="REVC\ReverseComplementTest.cs" />
     <Compile Include="RNA\Rna.cs" />
     <Compile Include="RNA\RnaTest.cs" />
+    <Compile Include="SPLC\SplcTest.cs" />
     <Compile Include="SUBS\Subs.cs" />
     <Compile Include="SUBS\SubsTest.cs" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <Content Include="RNA\rosalind_rna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SPLC\README.txt" />
     <Content Include="SUBS\README.txt" />
     <Content Include="SUBS\rosalind_subs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -177,6 +179,7 @@
       <Name>Rosalind.Lib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
