@@ -77,6 +77,7 @@
     <Compile Include="GRPH\Grph.cs" />
     <Compile Include="GRPH\GrphTest.cs" />
     <Compile Include="HAMM\HammTest.cs" />
+    <Compile Include="LCSM\LcsmTest.cs" />
     <Compile Include="MPRT\Mprt.cs" />
     <Compile Include="MPRT\MprtTest.cs" />
     <Compile Include="MRNA\Mrna.cs" />
@@ -125,6 +126,7 @@
     <Content Include="HAMM\rosalind_hamm.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="LCSM\README.txt" />
     <Content Include="MPRT\A2Z669.fasta.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
