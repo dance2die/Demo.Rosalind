@@ -59,10 +59,30 @@ ATCGGTCGAGCGTGT";
 			Assert.Equal(expected, actual);
 		}
 
+		[Fact]
+		public void TranscribeAndTranslateDnaToProteinAfterRemovingIntrons()
+		{
+			// Given on the website.
+			const string expected = "MVYIADKQHVASREAYGHMFKVCA";
+
+			string actual = _sut.ConvertToProteinAfterRemovingIntrons(SAMPLE_DATASET);
+
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class Splc
 	{
+		public string ConvertToProteinAfterRemovingIntrons(string fastaString)
+		{
+			string dnaString = TranscribeDnaString(fastaString);
+
+			var rna = new Rna();
+			string rnaString = rna.ConvertDnaToRna(dnaString);
+
+			return rna.ConvertRnaToProtein(rnaString);
+		}
+
 		public string TranscribeDnaString(string fastaString)
 		{
 			FastaReader reader = new FastaReader();
