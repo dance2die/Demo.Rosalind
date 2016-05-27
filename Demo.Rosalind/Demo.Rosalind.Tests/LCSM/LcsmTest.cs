@@ -68,7 +68,7 @@ ATACA";
 			string comparisonString = string.Empty;
 			List<string> candidateDenominators = new List<string>();
 
-			// Forward check
+			// working version.
 			for (int i = 0; i < value1.Length; i++)
 			{
 				for (int length = 1; length <= value1.Length - i; length++)
@@ -82,6 +82,19 @@ ATACA";
 						break;
 				}
 			}
+			
+			// Backwards good
+			//for (int i = 0; i < value1.Length; i++)
+			//{
+			//	for (int length = value1.Length - i; length >= 1; length--)
+			//	{
+			//		comparisonString = value1.Substring(i, length);
+			//		if (value2.IndexOf(comparisonString) >= 0)
+			//		{
+			//			candidateDenominators.Add(comparisonString);
+			//		}
+			//	}
+			//}
 
 			// Find the longest length of demoninators
 			var maxLength = candidateDenominators.Max(candidateDenominator => candidateDenominator.Length);
