@@ -59,6 +59,21 @@ ATACA";
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
+
+		[Fact]
+		public void TestSampleDataWithOutput()
+		{
+			// answer given on the website.
+			const string expected = "AC";
+
+			var fasta = new FastaReader().ParseDataset(SAMPLE_DATASET);
+
+			var firstValue = fasta.First().Value;
+			foreach (KeyValuePair<string, string> pair in fasta)
+			{
+				_sut.GetLongestCommonDenominatorStrings()
+			}
+		}
 	}
 
 	public class Lcsm
