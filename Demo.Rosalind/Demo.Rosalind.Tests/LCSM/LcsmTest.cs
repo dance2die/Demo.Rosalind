@@ -24,7 +24,7 @@ ATACA";
 		{
 			get
 			{
-				return new []
+				return new[]
 				{
 					new object[] { "AAABBB", "AAACCCBBB", new []{"AAA", "BBB"} },
 					new object[] { "AAACCCBBB", "AAADDDBBB", new []{"AAA", "BBB"} },
@@ -37,18 +37,6 @@ ATACA";
 			_sut = new Lcsm();
 		}
 
-		[Theory]
-		//[MemberData(nameof(DnaStrings))]
-		[InlineData("AAABBB", "AAACCCBBB", new [] { "AAA", "BBB" })]
-		[InlineData("AAACCCBBB", "AAADDDBBB", new[] { "AAA", "BBB" })]
-		[InlineData("XXXTTT", "XXXTBBB", new[] { "XXXT" })]
-		public void TestGettingCommonLongestStringList(string value1, string value2, IEnumerable<string> expected)
-		{
-			var actual = _sut.GetLongestCommonDenominatorStrings(value1, value2);
-
-			Assert.True(expected.SequenceEqual(actual));
-		}
-
 		[Fact]
 		public void TestGettingTheCommonLongestString()
 		{
@@ -58,35 +46,41 @@ ATACA";
 
 			Assert.Equal(expected, actual);
 		}
+
+		[Theory]
+		//[MemberData(nameof(DnaStrings))]
+		[InlineData("AAABBB", "AAACCCBBB", new[] { "AAA", "BBB" })]
+		[InlineData("AAACCCBBB", "AAADDDBBB", new[] { "AAA", "BBB" })]
+		[InlineData("XXXTTT", "XXXTBBB", new[] { "XXXT" })]
+		[InlineData("XXXTTAAAB", "XXXBBBAAAB", new[] { "AAAB" })]
+		public void TestGettingCommonLongestStringList(string value1, string value2, IEnumerable<string> expected)
+		{
+			var actual = _sut.GetLongestCommonDenominatorStrings(value1, value2);
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
 	}
 
 	public class Lcsm
 	{
 		public List<string> GetLongestCommonDenominatorStrings(string value1, string value2)
 		{
-			string comparisonString1 = string.Empty;
-			string comparisonString2 = string.Empty;
-
+			string comparisonString = string.Empty;
 			List<string> candidateDenominators = new List<string>();
+
+			// Forward check
 			for (int i = 0; i < value1.Length; i++)
 			{
-				for (int j = 0; j < value2.Length; j++)
+				for (int length = 1; length <= value1.Length - i; length++)
 				{
-					// start comparison
-					if (value1[i] == value2[j])
+					comparisonString = value1.Substring(i, length);
+					if (value2.IndexOf(comparisonString) >= 0)
 					{
-						comparisonString1 += value1[i];
-						comparisonString2 += value2[j];
+						candidateDenominators.Add(comparisonString);
 					}
-
-					if (value1[i] == value2[j] && comparisonString1 != comparisonString2)
-					{
-						candidateDenominators.Add(comparisonString2);
-						comparisonString1 = string.Empty;
-					}
+					else
+						break;
 				}
-
-				comparisonString2 = string.Empty;
 			}
 
 			// Find the longest length of demoninators
