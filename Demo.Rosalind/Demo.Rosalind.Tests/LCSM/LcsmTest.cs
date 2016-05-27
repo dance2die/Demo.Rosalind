@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Rosalind.Lib.Util;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.Extensions;
 
 namespace Demo.Rosalind.Tests.LCSM
 {
@@ -19,9 +20,32 @@ TAGACCA
 >Rosalind_3
 ATACA";
 
+		public static IEnumerable<object[]> DnaStrings
+		{
+			get
+			{
+				return new []
+				{
+					new object[] { "AAABBB", "AAACCCBBB", new []{"AAA", "BBB"} },
+					new object[] { "AAACCCBBB", "AAADDDBBB", new []{"AAA", "BBB"} },
+				};
+			}
+		}
+
 		public LcsmTest(ITestOutputHelper output) : base(output)
 		{
 			_sut = new Lcsm();
+		}
+
+		[Theory]
+		//[MemberData(nameof(DnaStrings))]
+		[InlineData("AAABBB", "AAACCCBBB", new [] { "AAA", "BBB" })]
+		[InlineData("AAACCCBBB", "AAADDDBBB", new[] { "AAA", "BBB" })]
+		public void TestGettingCommonLongestStringList(string value1, string value2, IEnumerable<string> expected)
+		{
+			var actual = _sut.GetLongestCommonDenominatorStrings(value1, value2);
+
+			Assert.True(expected.SequenceEqual(actual));
 		}
 
 		[Fact]
@@ -37,6 +61,41 @@ ATACA";
 
 	public class Lcsm
 	{
+		public List<string> GetLongestCommonDenominatorStrings(string value1, string value2)
+		{
+			string comparisonString1 = string.Empty;
+			string comparisonString2 = string.Empty;
+
+			List<string> candidateDenominators = new List<string>();
+			for (int i = 0; i < value1.Length; i++)
+			{
+				for (int j = 0; j < value2.Length; j++)
+				{
+					// start comparison
+					if (value1[i] == value2[j])
+					{
+						comparisonString1 += value1[i];
+						comparisonString2 += value2[j];
+					}
+
+					if (value1[i] == value2[j] && comparisonString1 != comparisonString2)
+					{
+						candidateDenominators.Add(comparisonString2);
+						comparisonString1 = string.Empty;
+					}
+				}
+
+				comparisonString2 = string.Empty;
+			}
+
+			// Find the longest length of demoninators
+			var maxLength = candidateDenominators.Max(candidateDenominator => candidateDenominator.Length);
+			return candidateDenominators
+				.Where(candidateDenominator => candidateDenominator.Length == maxLength)
+				.Distinct()
+				.ToList();
+		}
+
 		public string GetCommonLongestString(string fastaString)
 		{
 			var fasta = new FastaReader().ParseDataset(fastaString);
@@ -65,53 +124,6 @@ ATACA";
 			//}
 
 			//return commonDenominator;
-		}
-
-		private List<string> GetLongestCommonDenominatorStrings(string value1, string value2)
-		{
-			string result = string.Empty;
-
-			string comparisonString1 = string.Empty;
-			string comparisonString2 = string.Empty;
-
-			List<string> candidateDenominators = new List<string>();
-			for (int i = 0; i < value1.Length; i++)
-			{
-				for (int j = 0; j < value2.Length; j++)
-				{
-					try
-					{
-						// start comparison
-						if (value1[i] == value2[j])
-						{
-							comparisonString1 += value1[i];
-							comparisonString2 += value2[j];
-						}
-					}
-					catch (Exception e)
-					{
-						Console.WriteLine(e);
-					}
-
-					if (value1[i] == value2[j] && comparisonString1 != comparisonString2)
-					{
-						candidateDenominators.Add(comparisonString1);
-						comparisonString1 = string.Empty;
-					}
-					else
-					{
-						result = comparisonString1;
-					}
-				}
-
-				comparisonString2 = string.Empty;
-			}
-
-			// Find the longest length of demoninators
-			var maxLength = candidateDenominators.Max(candidateDenominator => candidateDenominator.Length);
-			return candidateDenominators
-				.Where(candidateDenominator => candidateDenominator.Length == maxLength)
-				.ToList();
 		}
 	}
 }
