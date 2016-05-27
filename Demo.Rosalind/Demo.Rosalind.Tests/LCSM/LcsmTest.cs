@@ -41,6 +41,7 @@ ATACA";
 		//[MemberData(nameof(DnaStrings))]
 		[InlineData("AAABBB", "AAACCCBBB", new [] { "AAA", "BBB" })]
 		[InlineData("AAACCCBBB", "AAADDDBBB", new[] { "AAA", "BBB" })]
+		[InlineData("XXXTTT", "XXXTBBB", new[] { "XXXT" })]
 		public void TestGettingCommonLongestStringList(string value1, string value2, IEnumerable<string> expected)
 		{
 			var actual = _sut.GetLongestCommonDenominatorStrings(value1, value2);
