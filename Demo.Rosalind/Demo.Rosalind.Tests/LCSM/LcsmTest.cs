@@ -53,6 +53,7 @@ ATACA";
 		[InlineData("AAACCCBBB", "AAADDDBBB", new[] { "AAA", "BBB" })]
 		[InlineData("XXXTTT", "XXXTBBB", new[] { "XXXT" })]
 		[InlineData("XXXTTAAAB", "XXXBBBAAAB", new[] { "AAAB" })]
+		[InlineData("GATTACA", "TAGACCA", new[] { "GA", "AC" })]
 		public void TestGettingCommonLongestStringList(string value1, string value2, IEnumerable<string> expected)
 		{
 			var actual = _sut.GetLongestCommonDenominatorStrings(value1, value2);
@@ -68,10 +69,19 @@ ATACA";
 
 			var fasta = new FastaReader().ParseDataset(SAMPLE_DATASET);
 
+			List<string> commonStrings = new List<string>();
 			var firstValue = fasta.First().Value;
 			foreach (KeyValuePair<string, string> pair in fasta)
 			{
-				_sut.GetLongestCommonDenominatorStrings()
+				List<string> longestCommonDenominatorStrings = 
+					_sut.GetLongestCommonDenominatorStrings(firstValue, pair.Value);
+				commonStrings.AddRange(longestCommonDenominatorStrings);
+			}
+
+			var firstCommonDenominatorString = commonStrings.First();
+			foreach (string commonDenominatorString in commonStrings.Skip(1))
+			{
+				var common = _sut.GetLongestCommonDenominatorStrings(firstCommonDenominatorString, commonDenominatorString);
 			}
 		}
 	}
