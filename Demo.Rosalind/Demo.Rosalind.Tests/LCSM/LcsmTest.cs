@@ -53,7 +53,7 @@ ATACA";
 		[InlineData("AAACCCBBB", "AAADDDBBB", new[] { "AAA", "BBB" })]
 		[InlineData("XXXTTT", "XXXTBBB", new[] { "XXXT" })]
 		[InlineData("XXXTTAAAB", "XXXBBBAAAB", new[] { "AAAB" })]
-		[InlineData("GATTACA", "TAGACCA", new[] { "GA", "AC" })]
+		[InlineData("GATTACA", "TAGACCA", new[] { "GA", "TA", "AC", "CA"})]
 		public void TestGettingCommonLongestStringList(string value1, string value2, IEnumerable<string> expected)
 		{
 			var actual = _sut.GetLongestCommonDenominatorStrings(value1, value2);
