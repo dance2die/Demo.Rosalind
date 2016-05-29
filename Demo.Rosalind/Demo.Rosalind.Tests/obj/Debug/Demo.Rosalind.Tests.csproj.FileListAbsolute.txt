@@ -38,3 +38,4 @@ C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\ORF\rosalind_orf.txt
 C:\misc\Sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\SPLC\rosalind_splc.txt
 C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\LCSM\rosalind_lcsm.txt
+C:\misc\sources\Repos\Demo.Rosalind\Demo.Rosalind\Demo.Rosalind.Tests\bin\Debug\PERM\rosalind_perm.txt

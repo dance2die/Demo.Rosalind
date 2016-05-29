@@ -158,6 +158,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PERM\README.txt" />
+    <Content Include="PERM\rosalind_perm.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PROT\README.txt" />
     <Content Include="PROT\rosalind_prot.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

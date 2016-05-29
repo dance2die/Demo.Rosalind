@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Xunit;
@@ -49,6 +50,16 @@ namespace Demo.Rosalind.Tests.PERM
 			string actual = _sut.GetPermutationOutputString(SAMPLE_DATASET);
 
 			Assert.True(string.CompareOrdinal(expected, actual) == 0);
+		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string permutationLength = File.ReadAllText(@".\PERM\rosalind_perm.txt");
+
+			string result = _sut.GetPermutationOutputString(int.Parse(permutationLength));
+
+			_output.WriteLine(result);
 		}
 
 		/// <summary>
