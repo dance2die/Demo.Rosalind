@@ -85,6 +85,7 @@
     <Compile Include="MRNA\MrnaTest.cs" />
     <Compile Include="ORF\Orf.cs" />
     <Compile Include="ORF\OrfTest.cs" />
+    <Compile Include="PERM\ArrayComparison.cs" />
     <Compile Include="PERM\PermTest.cs" />
     <Compile Include="PROT\Prot.cs" />
     <Compile Include="PROT\ProtTest.cs" />

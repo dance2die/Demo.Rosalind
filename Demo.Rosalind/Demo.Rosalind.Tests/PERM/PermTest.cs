@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -35,6 +35,25 @@ namespace Demo.Rosalind.Tests.PERM
 			Assert.True(IsMultidimensionalArraySequenceEqual(expected, actual));
 		}
 
+		[Fact]
+		public void TestOutputingResult()
+		{
+			const string expected = @"6
+1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1";
+
+			string actual = _sut.GetPermutationOutputString(SAMPLE_DATASET);
+
+			Assert.True(string.CompareOrdinal(expected, actual) == 0);
+		}
+
+		/// <summary>
+		/// Compare a List of integer arrays.
+		/// </summary>
 		private bool IsMultidimensionalArraySequenceEqual(List<int[]> list1, List<int[]> list2)
 		{
 			for (int i = 0; i < list1.Count; i++)
@@ -47,36 +66,28 @@ namespace Demo.Rosalind.Tests.PERM
 		}
 	}
 
-	public class ArrayComparison : IComparer<int[]>
-	{
-		public int Compare(int[] a1, int[] a2)
-		{
-			int sortValue1 = 0;
-			int sortValue2 = 0;
-			int powerCount = a1.Length - 1;
-			for (int i = 0; i < a1.Length; i++)
-			{
-				int power = (int)Math.Pow(10, powerCount);
-				sortValue1 += a1[i] * power;
-				sortValue2 += a2[i] * power;
-
-				powerCount--;
-			}
-
-			if (sortValue1 > sortValue2) return 1;
-			if (sortValue1 == sortValue2) return 0;
-			if (sortValue1 < sortValue2) return -1;
-
-			return 0;
-		}
-	}
-
 	public class Perm
 	{
-		public IEnumerable<int[]> GetPermutations(int permutationCount)
+		public string GetPermutationOutputString(int permutationLength)
 		{
-			int[] permutationList = Enumerable.Range(1, permutationCount).ToArray();
-			IEnumerable<int[]> result = GeneratePermutations(permutationList, 0, permutationCount - 1).ToList();
+			var permutations = GetPermutations(permutationLength).ToList();
+			permutations.Sort(new ArrayComparison());
+
+			StringBuilder buffer = new StringBuilder();
+			buffer.AppendLine(permutations.Count.ToString());
+
+			foreach (int[] permutation in permutations)
+			{
+				buffer.AppendLine(string.Join(" ", permutation.Select(i => i.ToString()).ToArray()));
+			}
+
+			return buffer.ToString().Trim();
+		}
+
+		public IEnumerable<int[]> GetPermutations(int permutationLength)
+		{
+			int[] permutationList = Enumerable.Range(1, permutationLength).ToArray();
+			IEnumerable<int[]> result = GeneratePermutations(permutationList, 0, permutationLength - 1).ToList();
 
 			return result;
 		}
