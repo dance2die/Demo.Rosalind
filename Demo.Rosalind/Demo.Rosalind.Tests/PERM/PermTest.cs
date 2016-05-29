@@ -93,10 +93,14 @@ namespace Demo.Rosalind.Tests.PERM
 				for (int i = startCount; i <= permutationCount; i++)
 				{
 					Swap(permutationList, startCount, i);
-					foreach (int[] permutation in GeneratePermutations(new List<int>(permutationList).ToArray(), startCount + 1, permutationCount))
+
+					var permutationListCopy = new List<int>(permutationList).ToArray();
+					var permutations = GeneratePermutations(permutationListCopy, startCount + 1, permutationCount);
+					foreach (int[] permutation in permutations)
 					{
 						yield return permutation;
 					}
+
 					Swap(permutationList, startCount, i);
 				}
 
