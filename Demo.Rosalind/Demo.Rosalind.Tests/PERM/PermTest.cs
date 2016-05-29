@@ -32,7 +32,6 @@ namespace Demo.Rosalind.Tests.PERM
 			};
 
 			IEnumerable<int[]> actual = _sut.GetPermutations(SAMPLE_DATASET).ToList();
-
 			
 		}
 	}
@@ -42,7 +41,7 @@ namespace Demo.Rosalind.Tests.PERM
 		public IEnumerable<int[]> GetPermutations(int permutationCount)
 		{
 			int[] permutationList = Enumerable.Range(1, permutationCount).ToArray();
-			List<int[]> result = GeneratePermutations(permutationList, 0, permutationCount - 1).ToList();
+			IEnumerable<int[]> result = GeneratePermutations(permutationList, 0, permutationCount - 1).ToList();
 
 			return result;
 		}
@@ -58,21 +57,23 @@ namespace Demo.Rosalind.Tests.PERM
 			{
 				for (int i = startCount; i <= permutationCount; i++)
 				{
-					Swap(ref permutationList, startCount, i);
-					GeneratePermutations(permutationList, startCount + 1, permutationCount).ToList();
-					Swap(ref permutationList, startCount, i);
+					Swap(permutationList, startCount, i);
+					foreach (int[] permutation in GeneratePermutations(new List<int>(permutationList).ToArray(), startCount + 1, permutationCount))
+					{
+						yield return permutation;
+					}
+					Swap(permutationList, startCount, i);
 				}
 				
 			}
 		}
 
 		// http://stackoverflow.com/a/2094316/4035
-		public static void Swap(ref int[] list, int index1, int index2)
+		public static void Swap(int[] list, int index1, int index2)
 		{
 			int tmp = list[index1];
 			list[index1] = list[index2];
 			list[index2] = tmp;
 		}
-
 	}
 }
