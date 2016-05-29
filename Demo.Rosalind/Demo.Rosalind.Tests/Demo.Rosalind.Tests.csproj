@@ -94,6 +94,7 @@
     <Compile Include="PRTM\Prtm.cs" />
     <Compile Include="PRTM\PrtmTest.cs" />
     <Compile Include="REVC\ReverseComplementTest.cs" />
+    <Compile Include="REVP\RevpTest.cs" />
     <Compile Include="RNA\Rna.cs" />
     <Compile Include="RNA\RnaTest.cs" />
     <Compile Include="SPLC\Splc.cs" />
