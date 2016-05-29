@@ -37,127 +37,195 @@ ATACA";
 			_sut = new Lcsm();
 		}
 
+		//[Fact]
+		//public void TestGettingTheCommonLongestString()
+		//{
+		//	const string expected = "AC";
+
+		//	string actual = _sut.GetCommonLongestString(SAMPLE_DATASET);
+
+		//	Assert.Equal(expected, actual);
+		//}
+
+		//[Theory]
+		////[MemberData(nameof(DnaStrings))]
+		//[InlineData("AAABBB", "AAACCCBBB", new[] { "AAA", "BBB" })]
+		//[InlineData("AAACCCBBB", "AAADDDBBB", new[] { "AAA", "BBB" })]
+		//[InlineData("XXXTTT", "XXXTBBB", new[] { "XXXT" })]
+		//[InlineData("XXXTTAAAB", "XXXBBBAAAB", new[] { "AAAB" })]
+		//[InlineData("GATTACA", "TAGACCA", new[] { "GA", "TA", "AC", "CA" })]
+		//[InlineData("TAGACCA", "ATACA", new[] { "TA", "AC", "CA" })]
+		//public void TestGettingCommonLongestStringList(string value1, string value2, IEnumerable<string> expected)
+		//{
+		//	var actual = _sut.GetLongestCommonDenominatorStrings(value1, value2);
+
+		//	Assert.True(expected.SequenceEqual(actual));
+		//}
+
+		//[Fact]
+		//public void TestSampleDataWithOutput()
+		//{
+		//	// answer given on the website.
+		//	string[] expected = { "TA", "AC", "CA" };
+
+		//	var fasta = new FastaReader().ParseDataset(SAMPLE_DATASET);
+
+		//	//List<string> commonStrings = new List<string>();
+		//	//var firstValue = fasta.First().Value;
+		//	//foreach (KeyValuePair<string, string> pair in fasta.Skip(1))
+		//	//{
+		//	//	List<string> longestCommonDenominatorStrings = 
+		//	//		_sut.GetLongestCommonDenominatorStrings(firstValue, pair.Value);
+		//	//	commonStrings.AddRange(longestCommonDenominatorStrings);
+		//	//}
+		//	//Dictionary<int, List<string>> commonDenominatorDictionary = new Dictionary<int, List<string>>();
+		//	//int key = 0;
+		//	//foreach (KeyValuePair<string, string> pair1 in fasta)
+		//	//{
+		//	//	foreach (KeyValuePair<string, string> pair2 in fasta)
+		//	//	{
+		//	//		if (pair1.Value == pair2.Value)
+		//	//			continue;
+		//	//		else
+		//	//			key++;
+
+		//	//		List<string> longestCommonDenominatorStrings =
+		//	//			_sut.GetLongestCommonDenominatorStrings(pair1.Value, pair2.Value);
+		//	//		//commonStrings.AddRange(longestCommonDenominatorStrings);
+		//	//		commonDenominatorDictionary.Add(key, longestCommonDenominatorStrings);
+		//	//	}
+		//	//}
+
+		//	//List<string> finalCommonDenominators = commonDenominatorDictionary.First().Value;
+		//	//foreach (KeyValuePair<int, List<string>> pair in commonDenominatorDictionary.Skip(1))
+		//	//{
+		//	//	finalCommonDenominators = finalCommonDenominators.Union(pair.Value).ToList();
+		//	//}
+
+
+
+		//	//List<string> union = new List<string>();
+		//	//foreach (string final1 in finalCommonDenominators)
+		//	//{
+		//	//	foreach (string final2 in finalCommonDenominators)
+		//	//	{
+		//	//		List<string> longestCommonDenominatorStrings = _sut.GetLongestCommonDenominatorStrings(final1, final2);
+		//	//		if (union.Count == 0)
+		//	//			union.AddRange(longestCommonDenominatorStrings);
+		//	//		else
+		//	//			union = union.Union(longestCommonDenominatorStrings).ToList();
+		//	//	}
+		//	//}
+
+		//	Assert.True(expected.SequenceEqual(union.Distinct()));
+		//}
+
 		[Fact]
-		public void TestGettingTheCommonLongestString()
+		public void TestSampleDataWithOutput2()
 		{
-			const string expected = "AC";
+			string[] expected = { "TA", "AC", "CA" };
 
-			string actual = _sut.GetCommonLongestString(SAMPLE_DATASET);
-
-			Assert.Equal(expected, actual);
-		}
-
-		[Theory]
-		//[MemberData(nameof(DnaStrings))]
-		[InlineData("AAABBB", "AAACCCBBB", new[] { "AAA", "BBB" })]
-		[InlineData("AAACCCBBB", "AAADDDBBB", new[] { "AAA", "BBB" })]
-		[InlineData("XXXTTT", "XXXTBBB", new[] { "XXXT" })]
-		[InlineData("XXXTTAAAB", "XXXBBBAAAB", new[] { "AAAB" })]
-		[InlineData("GATTACA", "TAGACCA", new[] { "GA", "TA", "AC", "CA"})]
-		[InlineData("TAGACCA", "ATACA", new[] { "TA", "AC", "CA"})]
-		public void TestGettingCommonLongestStringList(string value1, string value2, IEnumerable<string> expected)
-		{
-			var actual = _sut.GetLongestCommonDenominatorStrings(value1, value2);
+			IEnumerable<string> actual = _sut.GetLongestCommonDenominatorStrings2(SAMPLE_DATASET);
 
 			Assert.True(expected.SequenceEqual(actual));
-		}
-
-		[Fact]
-		public void TestSampleDataWithOutput()
-		{
-			// answer given on the website.
-			const string expected = "AC";
-
-			var fasta = new FastaReader().ParseDataset(SAMPLE_DATASET);
-
-			List<string> commonStrings = new List<string>();
-			var firstValue = fasta.First().Value;
-			foreach (KeyValuePair<string, string> pair in fasta)
-			{
-				List<string> longestCommonDenominatorStrings = 
-					_sut.GetLongestCommonDenominatorStrings(firstValue, pair.Value);
-				commonStrings.AddRange(longestCommonDenominatorStrings);
-			}
-
-			var firstCommonDenominatorString = commonStrings.First();
-			foreach (string commonDenominatorString in commonStrings.Skip(1))
-			{
-				var common = _sut.GetLongestCommonDenominatorStrings(firstCommonDenominatorString, commonDenominatorString);
-			}
 		}
 	}
 
 	public class Lcsm
 	{
-		public List<string> GetLongestCommonDenominatorStrings(string value1, string value2)
-		{
-			string comparisonString = string.Empty;
-			List<string> candidateDenominators = new List<string>();
-
-			// working version.
-			for (int i = 0; i < value1.Length; i++)
-			{
-				for (int length = 1; length <= value1.Length - i; length++)
-				{
-					comparisonString = value1.Substring(i, length);
-					if (value2.IndexOf(comparisonString) >= 0)
-					{
-						candidateDenominators.Add(comparisonString);
-					}
-					else
-						break;
-				}
-			}
-			
-			// Backwards good
-			//for (int i = 0; i < value1.Length; i++)
-			//{
-			//	for (int length = value1.Length - i; length >= 1; length--)
-			//	{
-			//		comparisonString = value1.Substring(i, length);
-			//		if (value2.IndexOf(comparisonString) >= 0)
-			//		{
-			//			candidateDenominators.Add(comparisonString);
-			//		}
-			//	}
-			//}
-
-			// Find the longest length of demoninators
-			var maxLength = candidateDenominators.Max(candidateDenominator => candidateDenominator.Length);
-			return candidateDenominators
-				.Where(candidateDenominator => candidateDenominator.Length == maxLength)
-				.Distinct()
-				.ToList();
-		}
-
-		public string GetCommonLongestString(string fastaString)
+		public IEnumerable<string> GetLongestCommonDenominatorStrings2(string fastaString)
 		{
 			var fasta = new FastaReader().ParseDataset(fastaString);
-			var commonDenominators = new List<string>();
 
-			foreach (KeyValuePair<string, string> pair1 in fasta)
+			var allStrings = fasta.Select(pair => pair.Value);
+			string shortest = allStrings.OrderBy(s => s.Length).First();
+			IEnumerable<string> shortedSubstrings = GetAllSubstrings(shortest).OrderByDescending(s => s.Length);
+			string[] others = allStrings.Where(s => s != shortest).ToArray();
+
+			List<string> longestSubstrings = new List<string>();
+			foreach (string longestSubstring in shortedSubstrings)
 			{
-				foreach (KeyValuePair<string, string> pair2 in fasta)
+				bool allContains = others.All(s => s.Contains(longestSubstring));
+				if (allContains)
 				{
-					if (pair1.Value == pair2.Value)
-						commonDenominators.Add(pair1.Value);
-
-					commonDenominators.AddRange(GetLongestCommonDenominatorStrings(pair1.Value, pair2.Value));
+					longestSubstrings.Add(longestSubstring);
+					//yield return longestSubstring;
 				}
 			}
 
-			var maxLength = commonDenominators.Max(candidateDenominator => candidateDenominator.Length);
-			return commonDenominators
-				.First(candidateDenominator => candidateDenominator.Length == maxLength);
-
-			//string commonDenominator = fasta.First().Value;
-			//// Start from the 2nd element
-			//foreach (KeyValuePair<string, string> pair in fasta.Skip(1))
-			//{
-			//	commonDenominators.AddRange(GetLongestCommonDenominatorStrings(commonDenominator, pair.Value));
-			//}
-
-			//return commonDenominator;
+			var maxLength = longestSubstrings.Max(str => str.Length);
+			return longestSubstrings.Where(str => str.Length == maxLength);
 		}
+
+		// http://stackoverflow.com/a/13509460/4035
+		private static IEnumerable<string> GetAllSubstrings(string word)
+		{
+			return from charIndex1 in Enumerable.Range(0, word.Length)
+				   from charIndex2 in Enumerable.Range(0, word.Length - charIndex1 + 1)
+				   where charIndex2 > 0
+				   select word.Substring(charIndex1, charIndex2);
+		}
+
+		//public List<string> GetLongestCommonDenominatorStrings(string value1, string value2)
+		//{
+		//	string comparisonString = string.Empty;
+		//	List<string> candidateDenominators = new List<string>();
+
+		//	// working version.
+		//	for (int i = 0; i < value1.Length; i++)
+		//	{
+		//		for (int length = 1; length <= value1.Length - i; length++)
+		//		{
+		//			comparisonString = value1.Substring(i, length);
+		//			if (value2.IndexOf(comparisonString) >= 0)
+		//			{
+		//				candidateDenominators.Add(comparisonString);
+		//			}
+		//			else
+		//				break;
+		//		}
+		//	}
+
+		//	// Backwards good
+		//	//for (int i = 0; i < value1.Length; i++)
+		//	//{
+		//	//	for (int length = value1.Length - i; length >= 1; length--)
+		//	//	{
+		//	//		comparisonString = value1.Substring(i, length);
+		//	//		if (value2.IndexOf(comparisonString) >= 0)
+		//	//		{
+		//	//			candidateDenominators.Add(comparisonString);
+		//	//		}
+		//	//	}
+		//	//}
+
+		//	// Find the longest length of demoninators
+		//	var maxLength = candidateDenominators.Max(candidateDenominator => candidateDenominator.Length);
+		//	return candidateDenominators
+		//		.Where(candidateDenominator => candidateDenominator.Length == maxLength)
+		//		.Distinct()
+		//		.ToList();
+		//}
+
+		//public string GetCommonLongestString(string fastaString)
+		//{
+		//	var fasta = new FastaReader().ParseDataset(fastaString);
+		//	var commonDenominators = new List<string>();
+
+		//	foreach (KeyValuePair<string, string> pair1 in fasta)
+		//	{
+		//		foreach (KeyValuePair<string, string> pair2 in fasta)
+		//		{
+		//			if (pair1.Value == pair2.Value)
+		//				commonDenominators.Add(pair1.Value);
+
+		//			commonDenominators.AddRange(GetLongestCommonDenominatorStrings(pair1.Value, pair2.Value));
+		//		}
+		//	}
+
+		//	var maxLength = commonDenominators.Max(candidateDenominator => candidateDenominator.Length);
+		//	return commonDenominators
+		//		.First(candidateDenominator => candidateDenominator.Length == maxLength);
+		//}
 	}
 }
