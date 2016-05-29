@@ -127,6 +127,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="LCSM\README.txt" />
+    <Content Include="LCSM\rosalind_lcsm.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MPRT\A2Z669.fasta.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

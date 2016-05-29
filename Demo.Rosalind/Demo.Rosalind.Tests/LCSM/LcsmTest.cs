@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -129,6 +130,19 @@ ATACA";
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string fastaString = File.ReadAllText(@".\LCSM\rosalind_lcsm.txt");
+
+			IEnumerable<string> result = _sut.GetLongestCommonDenominatorStrings2(fastaString);
+
+			foreach (string value in result)
+			{
+				_output.WriteLine(value);
+			}
+		}
 	}
 
 	public class Lcsm
@@ -137,7 +151,7 @@ ATACA";
 		{
 			var fasta = new FastaReader().ParseDataset(fastaString);
 
-			var allStrings = fasta.Select(pair => pair.Value);
+			var allStrings = fasta.Select(pair => pair.Value).ToList();
 			string shortest = allStrings.OrderBy(s => s.Length).First();
 			IEnumerable<string> shortedSubstrings = GetAllSubstrings(shortest).OrderByDescending(s => s.Length);
 			string[] others = allStrings.Where(s => s != shortest).ToArray();
@@ -147,10 +161,7 @@ ATACA";
 			{
 				bool allContains = others.All(s => s.Contains(longestSubstring));
 				if (allContains)
-				{
 					longestSubstrings.Add(longestSubstring);
-					//yield return longestSubstring;
-				}
 			}
 
 			var maxLength = longestSubstrings.Max(str => str.Length);
