@@ -27,17 +27,47 @@ namespace Demo.Rosalind.Tests.IPRB
 			const int precision = 5;    // 0.00001
 			Assert.Equal(expected, actual, precision);
 		}
+
+		[Fact]
+		public void TestResultAgainstSampleDatasetUsingDifferentAlogorithm()
+		{
+			const double expected = 0.78333D;
+
+			var actual = _sut.GetProbabilityForDominantAllele2(SAMPLE_DATASET);
+
+			const int precision = 5;    // 0.00001
+			Assert.Equal(expected, actual, precision);
+		}
 	}
 
 	public class Iprb
 	{
+		/// <summary>
+		/// Answer using "Susannah Go"'s formula on <see cref="https://susannahgo.files.wordpress.com/2015/11/rosalind-iprb.pdf"/>
+		/// </summary>
+		/// <remarks>
+		/// This runs slightly faster than Thagomizer's algorithm.
+		/// ( 4k(k − 1) + 3m(m − 1) + 4(2km + 2kn + mn) ) / 4p(p − 1)
+		/// </remarks>
+		public double GetProbabilityForDominantAllele2(string input)
+		{
+			var splitted = input.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+			double k = double.Parse(splitted[0]);
+			double m = double.Parse(splitted[1]);
+			double n = double.Parse(splitted[2]);
+			double p = k + m + n;
+
+			double result = ((4*k*(k - 1)) + (3*m*(m - 1)) + (4*(2*k*m + 2*k*n + m*n)))/(4*p*(p - 1));
+			return result;
+		}
+
 		/// <summary>
 		/// The probability that two randomly selected mating organisms will produce an individual possessing 
 		/// a dominant allele (and thus displaying the dominant phenotype). 
 		/// Assume that any two organisms can mate.
 		/// </summary>
 		/// <remarks>
-		/// Answer explanation
+		/// Answer explanation on Thagomizer.
 		/// http://www.thagomizer.com/blog/2014/11/19/approaching-rosalind-problems.html
 		/// <see cref="http://www.thagomizer.com/blog/2014/11/19/approaching-rosalind-problems.html"/>
 		/// </remarks>
