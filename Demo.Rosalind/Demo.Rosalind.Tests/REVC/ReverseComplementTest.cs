@@ -23,7 +23,7 @@ namespace Demo.Rosalind.Tests.REVC
 			// from the web site http://rosalind.info/problems/rna/
 			const string expected = "ACCGGGTTTT";
 
-			string actual = _sut.ReverseComplementDataset(SAMPLE_DATASET);
+			string actual = _sut.ReverseComplementDnaString(SAMPLE_DATASET);
 
 			Assert.Equal(expected, actual);
 		}
@@ -34,7 +34,7 @@ namespace Demo.Rosalind.Tests.REVC
 			const string filePath = @".\REVC\rosalind_revc.txt";
 			string dataset = File.ReadAllText(filePath);
 
-			string result = _sut.ReverseComplementDataset(dataset);
+			string result = _sut.ReverseComplementDnaString(dataset);
 
 			_output.WriteLine(result);
 		}

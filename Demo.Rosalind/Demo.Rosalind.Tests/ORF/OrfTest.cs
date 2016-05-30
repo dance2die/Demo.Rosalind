@@ -31,7 +31,7 @@ namespace Demo.Rosalind.Tests.ORF
 			_output.WriteLine("proteinString: {0}", proteinString);
 
 			ReverseComplement reverseComplement = new ReverseComplement();
-			var reverseComplementedDnaString = reverseComplement.ReverseComplementDataset(dnaString);
+			var reverseComplementedDnaString = reverseComplement.ReverseComplementDnaString(dnaString);
 
 			rnaString = rna.ConvertDnaToRna(reverseComplementedDnaString);
 			proteinString = rna.ConvertRnaToProtein(rnaString, "|");
@@ -78,7 +78,7 @@ namespace Demo.Rosalind.Tests.ORF
 			}
 
 			ReverseComplement reverseComplement = new ReverseComplement();
-			var reverseComplementedDnaString = reverseComplement.ReverseComplementDataset(dnaString);
+			var reverseComplementedDnaString = reverseComplement.ReverseComplementDnaString(dnaString);
 
 			foreach (string proteinString in GetProteinStringsWithDelimiters(reverseComplementedDnaString))
 			{

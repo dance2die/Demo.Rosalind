@@ -35,7 +35,7 @@ namespace Demo.Rosalind.Tests.ORF
 
 			// Return reverse complement strings
 			ReverseComplement reverseComplement = new ReverseComplement();
-			var reverseComplementedDnaString = reverseComplement.ReverseComplementDataset(dnaString);
+			var reverseComplementedDnaString = reverseComplement.ReverseComplementDnaString(dnaString);
 			foreach (string proteinString in GetProteinStringsWithDelimiters(reverseComplementedDnaString))
 			{
 				yield return proteinString;
