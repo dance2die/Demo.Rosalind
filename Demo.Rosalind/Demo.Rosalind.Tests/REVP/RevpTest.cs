@@ -44,10 +44,40 @@ TCAATGCATGCGGGTCTATATGCAT";
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
+
+		[Fact]
+		public void TestOutputingReversePalindromeIndexes()
+		{
+			const string expected = @"4 6
+5 4
+6 6
+7 4
+17 4
+18 4
+20 6
+21 4";
+			string actual = _sut.GetDnaReversePalindromeIndexesOutput(SAMPLE_DATASET);
+
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class Revp
 	{
+		public string GetDnaReversePalindromeIndexesOutput(string fastaString)
+		{
+			var indexes = GetDnaReversePalindromeIndexes(fastaString);
+			StringBuilder buffer = new StringBuilder();
+
+			foreach (Tuple<int, int> index in indexes)
+			{
+				buffer.AppendFormat("{0} {1}", index.Item1, index.Item2).AppendLine();
+			}
+
+			// Need to trim the last newline characters added by "AppenedLine" for the last item.
+			return buffer.ToString().TrimEnd();
+		}
+
 		public IEnumerable<Tuple<int, int>> GetDnaReversePalindromeIndexes(string fastaString)
 		{
 			// We are finding compliments with length between 4 and 12.
