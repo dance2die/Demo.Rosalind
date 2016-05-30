@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.IO;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -37,6 +35,18 @@ namespace Demo.Rosalind.Tests.IPRB
 
 			const int precision = 5;    // 0.00001
 			Assert.Equal(expected, actual, precision);
+		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string input = File.ReadAllText(@".\IPRB\rosalind_iprb.txt");
+
+			double result = _sut.GetProbabilityForDominantAllele2(input);
+
+			const int precision = 5;
+			decimal result2 = Math.Round((decimal) result, precision);
+			_output.WriteLine(result2.ToString(CultureInfo.InvariantCulture));
 		}
 	}
 
