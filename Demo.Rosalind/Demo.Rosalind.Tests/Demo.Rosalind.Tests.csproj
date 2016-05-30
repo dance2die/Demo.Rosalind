@@ -77,6 +77,7 @@
     <Compile Include="GRPH\Grph.cs" />
     <Compile Include="GRPH\GrphTest.cs" />
     <Compile Include="HAMM\HammTest.cs" />
+    <Compile Include="IPRB\Iprb.cs" />
     <Compile Include="IPRB\IprbTest.cs" />
     <Compile Include="LCSM\Lcsm.cs" />
     <Compile Include="LCSM\LcsmTest.cs" />
