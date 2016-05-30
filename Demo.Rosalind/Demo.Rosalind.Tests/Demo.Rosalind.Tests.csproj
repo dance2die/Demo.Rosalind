@@ -176,6 +176,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="REVP\README.txt" />
+    <Content Include="REVP\rosalind_revp.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="RNA\README.txt" />
     <Content Include="RNA\rosalind_rna.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

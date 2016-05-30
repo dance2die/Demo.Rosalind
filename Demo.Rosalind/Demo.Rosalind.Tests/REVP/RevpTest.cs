@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,17 @@ TCAATGCATGCGGGTCTATATGCAT";
 			string actual = _sut.GetDnaReversePalindromeIndexesOutput(SAMPLE_DATASET);
 
 			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void ShowResult()
+		{
+			string fastaString = File.ReadAllText(@".\REVP\rosalind_revp.txt");
+
+			string result = _sut.GetDnaReversePalindromeIndexesOutput(fastaString);
+
+			_output.WriteLine(result);
+
 		}
 	}
 
