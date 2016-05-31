@@ -50,7 +50,8 @@ namespace Demo.Rosalind.Tests.PERM
 						yield return permutation;
 					}
 
-					Swap(permutationList, startCount, i);
+					// This extra step is NOT needed.
+					//Swap(permutationList, startCount, i);
 				}
 
 			}
