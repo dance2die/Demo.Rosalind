@@ -27,13 +27,14 @@ namespace Demo.Rosalind.Tests.PERM
 		public IEnumerable<IEnumerable<int>> GetPermutations(int permutationLength)
 		{
 			int[] permutationList = Enumerable.Range(1, permutationLength).ToArray();
-			//IEnumerable<int[]> result = GeneratePermutations(permutationList, 0, permutationLength - 1).ToList();
-			var result = GetPermutations(permutationList, permutationLength);
+			IEnumerable<int[]> result = GeneratePermutations(permutationList, 0, permutationLength - 1).ToList();
+			//var result = GetPermutations(permutationList, permutationLength);
 
 			return result;
 		}
 
 		// http://stackoverflow.com/a/10630026/4035
+		// This has a problem if there is a duplicate number or character like for 'HALLOWEEN', it'd not work.
 		public IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T> enumerable, int length)
 		{
 			var list = enumerable.ToList();
