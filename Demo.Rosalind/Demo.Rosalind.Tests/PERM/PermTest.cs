@@ -19,7 +19,7 @@ namespace Demo.Rosalind.Tests.PERM
 		[Fact]
 		public void TestSampleDataSetPermutation()
 		{
-			List<int[]> expected = new List<int[]> 
+			var expected = new List<IEnumerable<int>> 
 			{
 				new [] {1, 2, 3},
 				new [] {1, 3, 2},
@@ -30,7 +30,7 @@ namespace Demo.Rosalind.Tests.PERM
 			};
 
 			var actual = _sut.GetPermutations(SAMPLE_DATASET).ToList();
-			actual.Sort(new ArrayComparison());
+			//actual.Sort(new ArrayComparison());
 
 			Assert.True(IsMultidimensionalArraySequenceEqual(expected, actual));
 		}
@@ -64,7 +64,8 @@ namespace Demo.Rosalind.Tests.PERM
 		/// <summary>
 		/// Compare a List of integer arrays.
 		/// </summary>
-		private bool IsMultidimensionalArraySequenceEqual(List<int[]> list1, List<int[]> list2)
+		//private bool IsMultidimensionalArraySequenceEqual(List<int[]> list1, List<int[]> list2)
+		private bool IsMultidimensionalArraySequenceEqual(List<IEnumerable<int>> list1, List<IEnumerable<int>> list2)
 		{
 			for (int i = 0; i < list1.Count; i++)
 			{

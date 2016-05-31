@@ -9,12 +9,13 @@ namespace Demo.Rosalind.Tests.PERM
 		public string GetPermutationOutputString(int permutationLength)
 		{
 			var permutations = GetPermutations(permutationLength).ToList();
-			permutations.Sort(new ArrayComparison());
+			//permutations.Sort(new ArrayComparison());
 
 			StringBuilder buffer = new StringBuilder();
 			buffer.AppendLine(permutations.Count.ToString());
 
-			foreach (int[] permutation in permutations)
+			//foreach (int[] permutation in permutations)
+			foreach (var permutation in permutations)
 			{
 				buffer.AppendLine(string.Join(" ", permutation.Select(i => i.ToString()).ToArray()));
 			}
@@ -22,12 +23,26 @@ namespace Demo.Rosalind.Tests.PERM
 			return buffer.ToString().Trim();
 		}
 
-		public IEnumerable<int[]> GetPermutations(int permutationLength)
+		//public IEnumerable<int[]> GetPermutations(int permutationLength)
+		public IEnumerable<IEnumerable<int>> GetPermutations(int permutationLength)
 		{
 			int[] permutationList = Enumerable.Range(1, permutationLength).ToArray();
-			IEnumerable<int[]> result = GeneratePermutations(permutationList, 0, permutationLength - 1).ToList();
+			//IEnumerable<int[]> result = GeneratePermutations(permutationList, 0, permutationLength - 1).ToList();
+			var result = GetPermutations(permutationList, permutationLength);
 
 			return result;
+		}
+
+		// http://stackoverflow.com/a/10630026/4035
+		public IEnumerable<IEnumerable<T>> GetPermutations<T>(IEnumerable<T> enumerable, int length)
+		{
+			var list = enumerable.ToList();
+			if (length == 1) return list.Select(t => new [] { t });
+			
+			return GetPermutations(list, length - 1)
+				.SelectMany(
+					t => list.Where(e => !t.Contains(e)),
+					(t1, t2) => t1.Concat(new [] { t2 }));
 		}
 
 		// http://stackoverflow.com/a/756083/4035
